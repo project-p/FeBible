@@ -44,14 +44,15 @@ public class QuestionValue {
 	/**
 	 * コンストラクタ。
 	 * 
-	 * @param context    Activityのインスタンス
+	 * @param context    アクティビティのインスタンス
 	 * @param mDb        接続先のデータベースに接続済みのSQLiteDatabaseのインスタンス
 	 * @param where      検索条件の文字列
 	 * @param where_args　検索条件のプレースホルダにバインドする文字列の配列
 	 */
-	public QuestionValue(Context context, SQLiteDatabase mDb, String where, String[] where_args) {
+	public QuestionValue(Context context, String where, String[] where_args) {
 		mMap = new HashMap<String, String>();
-		this.mDb        = mDb;
+		DataBaseHelper dbHelper = new DataBaseHelper(context);
+		this.mDb        = dbHelper.openDataBase();
 		this.where      = where;
 		this.where_args = where_args;
 		setDataToMap();
@@ -116,6 +117,7 @@ public class QuestionValue {
 			if( c != null) {
 				c.close();
 			}
+			mDb.close();
 		}
 	}
 }

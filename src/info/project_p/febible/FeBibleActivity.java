@@ -1,76 +1,88 @@
 package info.project_p.febible;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 
-import android.app.Activity;
-import android.webkit.JsResult;
-import android.app.ActionBar;
-import android.app.AlertDialog;
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Context;
 import android.database.SQLException;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
-import android.webkit.WebView;
 
 public class FeBibleActivity extends FragmentActivity {
-	private DataBaseHelper mDbHelper;
-	private SQLiteDatabase mDb;
 	private FeBibleFragment fragment;
-	private HashMap<String, FeBibleFragment> mMap;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		mMap = new HashMap<String, FeBibleFragment>();
-		
-		mMap.put("top", new TopFragment());
-		mMap.put("question", new QuestionFragment());
 			
 		// アクションバーを消す
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		
 		// データベースの初期設定
 		setDatabase();
+		
+		// FragmentManagerを取得し、FragmentTransactionを開始
 		FragmentManager fragmentManager = getFragmentManager();
 		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-		fragment = mMap.get("top");
+
+		// 初期画面としてTopFragmentを設定し、main.xmlのfragment_containerに割り当て
+		fragment = new TopFragment();
 		fragmentTransaction.add(R.id.fragment_container, fragment);
+		
+		// FragmentTransactionの終了
 		fragmentTransaction.commit();
 		
-		setContentView(R.layout.activity_main);
-	}
-
-	@Override
-	protected void onResume() {
-		super.onResume();
+		// レイアウトの読み込み
+		setContentView(R.layout.main);
 	}
 	
+	/**
+	 * ページ遷移を行うメソッド
+	 * WebViewから呼び出され、メンバ変数fragmentから次のページのインスタンスを取得してfragmentを切り替える
+	 */
 	public void goNextPage() {
-		String nextPage = fragment.getStrNextPage();
-		FeBibleFragment f = mMap.get(nextPage);
-
-		if(nextPage.equals("question")) {
-			String where  = "_id = ?";
-			String[] args = {"1"};
-			QuestionValue q = new QuestionValue(this, mDb, where, args);
-			f.addJavascriptInterface(q, "jsQuestion");
-		}
-//		f.reload();
 		FragmentManager fragmentManager = getFragmentManager();
+
+		// FragmentTransactionの開始
 		FragmentTransaction ft = fragmentManager.beginTransaction();
-		ft.replace(R.id.fragment_container, f);
+		// fragmentの置き換え
+		ft.replace(R.id.fragment_container, fragment.getNextFragment());
+		// 置き換える前のfragmentをBackStackに追加する
 		ft.addToBackStack(null);
+		// Transactionの終了
 		ft.commit();
+	}
+	
+	/**
+	 * バックキーが押された時の処理。
+	 * FragmentManagerのBackStackからfragmentをポップし、以前の画面を表示する
+	 * BackStackが空の場合はトップページなので、アプリを終了する
+	 */
+	@Override
+	public void onBackPressed(){
+	   if (0 !=getFragmentManager().getBackStackEntryCount()){
+	      getFragmentManager().popBackStack();
+	   } else {
+		   finish();
+	   }
+
+	}
+
+	/**
+	 * assetフォルダ内のデータベースを端末内のデータベースへ追加する処理
+	 */
+	private void setDatabase(){
+		DataBaseHelper db = new DataBaseHelper(this);
+		try {
+			db.createEmptyDataBase();
+		} catch (IOException e) {
+			throw new Error("Unable to create Database");
+		} catch (SQLException e) {
+			throw e;
+		}
 	}
 	
 	@Override
@@ -80,43 +92,6 @@ public class FeBibleActivity extends FragmentActivity {
 		return true;
 	}
 	
-
-	/**
-	 * DBヘルパーのクローズ処理。
-	 * onDestroyのタイミング（アプリが破棄されるとき）に実行される
-	 * 
-	 * @return void
-	 */
-	@Override
-	protected void onDestroy() {
-		mDb.close();
-		super.onDestroy();
-	}
-	
-	@Override
-	public void onBackPressed(){
-	   if (0 !=getFragmentManager().getBackStackEntryCount()){
-	      getFragmentManager().popBackStack();
-	   } else {
-		   super.onBackPressed();
-	   }
-
-	}
-	/**
-	 * assetフォルダ内のデータベースを端末内のデータベースへ追加する処理
-	 */
-	private void setDatabase(){
-		mDbHelper = new DataBaseHelper(this);
-		try {
-			mDbHelper.createEmptyDataBase();
-			mDb = mDbHelper.openDataBase();
-		} catch (IOException e) {
-			throw new Error("Unable to create Database");
-		} catch (SQLException e) {
-			throw e;
-		}
-	}
-
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {

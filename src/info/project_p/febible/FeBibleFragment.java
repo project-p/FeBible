@@ -1,6 +1,9 @@
-package info.project_p.febible;
+/* FeBibleアプリにおけるFragmentの基底クラスであり、WebViewFragmentのサブクラス。
+ * 
+ * 画面遷移のために次の画面を取得する抽象メソッドであるgetNextPageFragmentをオーバーライドすること。
+ */
 
-import java.util.HashMap;
+package info.project_p.febible;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -11,44 +14,44 @@ import android.webkit.WebView;
 import android.webkit.WebViewFragment;
 
 public abstract class FeBibleFragment extends WebViewFragment {
-	HashMap<String, Object> mMap;
-	WebView webview;
+	WebView webView;
 	
-	abstract public String getStrNextPage();
+	/**
+	 * 継承したFragmentからの遷移先Fragmentのインスタンスを取得する抽象メソッド。
+	 * @return 遷移先のFeBibleFragmentのインスタンス
+	 */
+	abstract public FeBibleFragment getNextFragment();
 	
+	/**
+	 * onActivityCreatedのタイミングでwebViewの生成を行う。
+	 */
 	@SuppressLint("SetJavaScriptEnabled")
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		if(mMap == null) mMap = new HashMap<String, Object>();
 		
-		webview = getWebView();
-		webview.getSettings().setJavaScriptEnabled(true);
-		webview.setWebChromeClient(new WebChromeClient(){
+		// webViewを取得し、JavaScriptの実行を許可
+		webView = getWebView();
+		webView.getSettings().setJavaScriptEnabled(true);
+		
+		// JavaScriptのデバッグ用にconsoleメソッドをオーバーライドしてwebViewにセット
+		// webView側で「console.log()」を利用すると結果がコンソールに表示される
+		webView.setWebChromeClient(new WebChromeClient(){
 		    @Override
 		    public boolean onConsoleMessage(ConsoleMessage cm){
 		        Log.d("FeBible", cm.message() + "--From line " + cm.lineNumber() + " of " + cm.sourceId());
 		        return true;
 		    }
 		});
-		FeBibleActivity activity = (FeBibleActivity)getActivity();
-		TransitionInterfase transition = new TransitionInterfase(activity);
-		webview.addJavascriptInterface(
-				transition,
-				"transition"
-		);
 		
-		for(String key: mMap.keySet()) {
-			webview.addJavascriptInterface(mMap.get(key), key);
-		}
+		// 画面遷移のためにContextとしてActivityを渡す
+		webView.addJavascriptInterface(getActivity(), "activity");
 	}
 	
-	public void addJavascriptInterface(Object object, String name){
-		if(mMap == null) mMap = new HashMap<String, Object>();
-		mMap.put(name, object);
-	}
-	
+	/**
+	 * 表示されているwebViewのリロードを行うメソッド
+	 */
 	public void reload() {
-		webview.reload();
+		webView.reload();
 	}
 }

@@ -5,7 +5,8 @@ import android.os.Bundle;
 
 public class TopFragment extends FeBibleFragment {
 	private final String URL = "file:///android_asset/top.html";
-	
+
+	// Resumeのタイミングで呼び出されるため空のコンストラクタを宣言しておくらしい
 	public TopFragment(){}
 	
 	@SuppressLint("SetJavaScriptEnabled")
@@ -13,11 +14,14 @@ public class TopFragment extends FeBibleFragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 
-		// WebView指定したファイルを読み込ませる
-		webview.loadUrl(URL);
+		// WebViewに指定したファイルを読み込ませる
+		webView.loadUrl(URL);
 	}
 	
-	public String getStrNextPage() {
-		return "question";
+	/**
+	 * 次の画面としてQuestionFragmentを渡す
+	 */
+	public FeBibleFragment getNextFragment() {
+		return new QuestionFragment();
 	}
 }
