@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html lang="ja">
+<head>
+	<title>Bootstrap基本テンプレート</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="css/bootstrap.min.css" media="screen">
+	<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
+<style>
+
+.title{
+line-height:      40px;
+text-align:       center;
+position:         fixed;
+top:              0;
+left:             0;
+background-color: #F90;
+z-index:1;
+
+}
+
+.set_nav{
+position:         fixed;
+top:              10px;
+right:            10px;
+background-color: #FC6;
+border:           none;
+}
+
+.main{
+width:            95%;
+margin-right:     auto;
+margin-left:      auto;
+}
+.foote_btncl{
+			 font-size:        120%;
+			 padding-top:      15px;
+			 padding-bottom:   15px;
+			 background-color: #F90;
+			 border:           none;
+}
+.foot_next{
+			 font-size:        120%;
+			 margin-top:       10px;
+			 padding-top:      15px;
+			 padding-bottom:   15px;
+			 background-color: #F90;
+			 border:           none;
+}
+
+</style>
+</head>
+<body style="padding-top:70px;">
+			<div class="container">
+			<!-- ヘッダーここから -->
+					<div class="row">
+					 <div class="col-xs-12 title">
+							<p>ここに文字だ～よ～</p>
+					 </div>
+						<button type="button" class="btn btn-default btn-sm set_nav">
+				<i class="glyphicon glyphicon glyphicon-cog"></i>
+						</button>
+					</div>
+			<!-- ヘッダーここまで -->
+
+			<!-- 画面ここから -->
+					<div class="row main">
+							 <!-- Top画像start -->
+							 <div>
+									 <img src="img/_m_happymeal4.jpg" alt="画像" class="img-circle img-responsive col-xs-12" style="padding-bottom: 30px;">
+							 </div>
+							 <!-- 画像スクロールしたらナビバーの下に回ってしまう・・・ -->
+							 <!-- Top画像end -->
+							 <!-- 選択肢start -->
+							 <div>
+									 <button id="next" type="button" class="btn btn-default btn-sm col-xs-8 col-xs-offset-2 foote_btncl">
+											 <strong>はじめる</strong>
+									 </button>
+							 </div>
+							 <!-- 選択肢end -->
+							 <!-- 次へstart -->
+							 <div>
+									 <button type="button" class="btn btn-default btn-sm col-xs-8 col-xs-offset-2 foot_next">
+											 <strong>設定</strong>
+									 </button>
+							 </div>
+							 <!-- 次へend -->
+					</div>
+					<script src="js/jquery.js"></script>
+					<script src="js/bootstrap.min.js"></script>
+					<script>
+							$(document).ready(function() {
+									console.log(transition);
+									$('#next').click(function() {
+											transition.goNextPage();
+									});
+							});
+					</script>
+			<!-- 画面ここまで -->
+			</div>
+</body>
+</html>

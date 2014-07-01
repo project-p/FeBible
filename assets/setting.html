@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html lang="ja">
+ <head>
+	 <title>Bootstrap基本テンプレート</title>
+	 <meta charset="utf-8">
+	 <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	 <link rel="stylesheet" href="css/bootstrap.min.css" media="screen">
+	 <!--[if lt IE 9]>
+		 <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		 <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	 <![endif]-->
+<style>
+
+.title{
+	line-height:40px;
+	text-align:center;
+	position:fixed;
+	top:0;
+	left:0;
+	background-color: #F90;
+	z-index:1;
+}
+
+.set_nav{
+	position:fixed;
+	top:10px;
+	right:10px;
+	background-color:#FC6;
+	border:none;
+}
+
+.main{
+	width:95%;
+	margin-right:auto;
+	margin-left:auto;
+}
+
+<!-- 設定画面ここから -->
+
+
+<!-- 設定画面ここまで -->
+
+</style>
+ </head>
+ <body style="padding-top:70px;">
+			 <div class="container">
+			 <!-- ヘッダーここから -->
+					 <div class="row">
+						<div class="col-xs-12 title">
+							 <p>設定</p>
+						</div>
+						<button type="button" class="btn btn-default btn-sm set_nav">
+				<i class="glyphicon glyphicon glyphicon-cog"></i>
+						</button>
+					 </div>
+				<!-- ヘッダーここまで -->
+
+				<!-- 画面ここから -->
+					 <div class="row main">
+				<form method="get">
+								<!-- 分類別出題ここから -->
+				<p>分類別出題</p>
+							<div class="row well well-sm">
+										<div class="row">
+												<div class="col-xs-6">
+												<select id="lCategory" name="lCategory" class="form-control">
+														<option value="" data-field="0" data-lCategory="0">大分類</option>
+														<option value="1" data-field="1" data-lCategory="1">基礎理論</option>
+							<option value="2" data-field="1" data-lCategory="2">コンピュータシステム</option>
+							<option value="3" data-field="1" data-lCategory="3">技術要素</option>
+							<option value="4" data-field="1" data-lCategory="4">開発技術</option>
+							<option value="5" data-field="2" data-lCategory="5">プロジェクトマネジメント</option>
+							<option value="6" data-field="2" data-lCategory="6">サービスマネジメント</option>
+							<option value="7" data-field="3" data-lCategory="7">システム戦略</option>
+							<option value="8" data-field="3" data-lCategory="8">経営戦略</option>
+							<option value="9" data-field="3" data-lCategory="9">企業と法務</option>
+						</select>
+												</div>
+												<div class="col-xs-6">
+												<select id="mCategory" name="mCategory" class="form-control">
+														<option value="" data-field="0" data-lCategory="0" data-mCategory="0">中分類</option>
+														<option value="1" data-field="1" data-lCategory="1" data-mCategory="1">基礎理論</option>
+							<option value="2" data-field="1" data-lCategory="1" data-mCategory="2">アルゴリズムとプログラミング</option>
+							<option value="3" data-field="1" data-lCategory="2" data-mCategory="3">コンピュータ構成要素</option>
+							<option value="4" data-field="1" data-lCategory="2" data-mCategory="4">システム構成要素</option>
+							<option value="5" data-field="1" data-lCategory="2" data-mCategory="5">ソフトウェア</option>
+							<option value="6" data-field="1" data-lCategory="2" data-mCategory="6">ハードウェア</option>
+							<option value="7" data-field="1" data-lCategory="3" data-mCategory="7">ヒューマンインターフェース</option>
+							<option value="8" data-field="1" data-lCategory="3" data-mCategory="8">マルチメディア</option>
+							<option value="9" data-field="1" data-lCategory="3" data-mCategory="9">データベース</option>
+							<option value="10" data-field="1" data-lCategory="3" data-mCategory="10">ネットワーク</option>
+							<option value="11" data-field="1" data-lCategory="3" data-mCategory="11">セキュリティ</option>
+							<option value="12" data-field="1" data-lCategory="4" data-mCategory="12">システム開発技術</option>
+							<option value="13" data-field="1" data-lCategory="4" data-mCategory="13">ソフトウェア開発管理技術</option>
+							<option value="14" data-field="2" data-lCategory="5" data-mCategory="14">プロジェクトマネジメント</option>
+							<option value="15" data-field="2" data-lCategory="6" data-mCategory="15">サービスマネジメント</option>
+							<option value="16" data-field="2" data-lCategory="6" data-mCategory="16">システム監査</option>
+							<option value="17" data-field="3" data-lCategory="7" data-mCategory="17">システム戦略</option>
+							<option value="18" data-field="3" data-lCategory="7" data-mCategory="18">システム企画</option>
+							<option value="19" data-field="3" data-lCategory="8" data-mCategory="19">経営戦略マネジメント</option>
+							<option value="20" data-field="3" data-lCategory="8" data-mCategory="20">技術戦略マネジメント</option>
+							<option value="21" data-field="3" data-lCategory="8" data-mCategory="21">ビジネスインダストリ</option>
+							<option value="22" data-field="3" data-lCategory="9" data-mCategory="22">企業活動</option>
+							<option value="23" data-field="3" data-lCategory="9" data-mCategory="23">法務</option>
+						</select>
+												</div>
+										</div>
+								</div>
+								<!-- 分類別出題ここまで -->
+				<!-- 出題頻度別ここから -->
+								<div class="form-group">
+										<p>出題頻度別</p>
+										<div class="row well well-sm">
+												<select name="hindo" class="form-control col-xs-6">
+														<option value="5">5</option>
+														<option value="4">4</option>
+														<option value="3">3</option>
+														<option value="2">2</option>
+														<option value="1">1</option>
+												</select>
+										</div>
+								</div>
+				<!-- 出題頻度別ここまで -->
+								<!-- 年度別ここから -->
+								<div class="form-group">
+										<p>年度別</p>
+										<div class="row well well-sm">
+											<div class="row">
+														<div class="col-xs-6">
+																<select id="year" name="year" class="form-control">
+																		<option value="">年度</option>
+																		<option value="26">平成26年度</option>
+																		<option value="25">平成25年度</option>
+																		<option value="24">平成24年度</option>
+																		<option value="23">平成23年度</option>
+																		<option value="22">平成22年度</option>
+																		<option value="21">平成21年度</option>
+																</select>
+														</div>
+														<div class="col-xs-6">
+																<select id="season" name="season" class="form-control">
+																		<option value="">季節</option>
+																		<option value="1">春</option>
+																		<option value="2">秋</option>
+																		<option value="3">特別</option>
+																</select>
+														</div>
+												</div>
+												<p style="text-align:center;">から</p>
+											<div class="row">
+														<div class="col-xs-6">
+																<select id="year2" name="year2" class="form-control">
+																		<option value="">年度</option>
+																		<option value="26">平成26年度</option>
+																		<option value="25">平成25年度</option>
+																		<option value="24">平成24年度</option>
+																		<option value="23">平成23年度</option>
+																		<option value="22">平成22年度</option>
+																		<option value="21">平成21年度</option>
+																</select>
+														</div>
+														<div class="col-xs-6">
+																<select id="season2" name="season2" class="form-control">
+																		<option value="">季節</option>
+																		<option value="1">春</option>
+																		<option value="2">秋</option>
+																		<option value="3">特別</option>
+																</select>
+														</div>
+												</div>
+										</div>
+								</div>
+								<!-- 年度別ここまで -->
+				</form>
+					 </div>
+					 <script src="js/jquery.js"></script>
+					 <script src="js/bootstrap.min.js"></script>
+				<!-- 画面ここまで -->
+			 </div>
+ </body>
+</html>

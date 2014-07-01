@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html lang="ja">
+ <head>
+	 <title>Bootstrap基本テンプレート</title>
+	 <meta charset="utf-8">
+	 <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	 <link rel="stylesheet" href="css/bootstrap.min.css" media="screen">
+	 <!--[if lt IE 9]>
+		 <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		 <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	 <![endif]-->
+<style>
+
+.title{
+	line-height:      40px;
+	text-align:       center;
+	position:         fixed;
+	top:              0;
+	left:             0;
+	background-color: #F90;
+}
+
+.set_nav{
+	position:         fixed;
+	top:              10px;
+	right:            10px;
+	background-color: #FC6;
+	border:           none;
+}
+
+.main{
+	width:            95%;
+	margin-right:     auto;
+	margin-left:      auto;
+}
+.foote_btncl{
+	padding-top:      15px;
+	padding-bottom:   15px;
+	background-color: #F90;
+	border:           none;
+}
+.foot_next{
+	margin-top:       10px;
+	padding-top:      15px;
+	padding-bottom:   15px;
+	background-color: #F90;
+	border:           none;
+}
+
+</style>
+ </head>
+ <body style="padding-top:70px;">
+			 <div class="container">
+				<!-- ヘッダーここから -->
+					 <div class="row">
+						<div class="col-xs-12 title">
+							 <p id="title"></p>
+						</div>
+						<button type="button" class="btn btn-default btn-sm set_nav">
+		<i class="glyphicon glyphicon-asterisk"></i>
+						</button>
+					 </div>
+				<!-- ヘッダーここまで -->
+
+				<!-- 画面ここから -->
+					 <div class="row main">
+								<!-- プログレスバーstart -->
+<!-- 								<div class="progress row">
+										<div class="progress-bar progress-bar-xxx" style="width:20%">20%</div>
+								</div> -->
+								<!-- プログレスバーend -->
+								<!-- 問題入力start -->
+								<div class="row">
+										<p id="sentence"></p>
+										<p id="answer1"></p>
+										<p id="answer2"></p>
+										<p id="answer3"></p>
+										<p id="answer4"></p>
+								</div>
+								<!-- 問題入力start -->
+								<!-- 選択肢start -->
+								<div class="row">
+										<button type="radio" name="selection" value="1" class="btn btn-default btn-sm col-xs-3 foote_btncl">
+												ア
+										</button>
+										<button type="radio" name="selection" value="2" class="btn btn-default btn-sm col-xs-3 foote_btncl">
+												イ
+										</button>
+										<button type="radio" name="selection" value="3" class="btn btn-default btn-sm  col-xs-3 foote_btncl">
+												ウ
+										</button>
+										<button type="radio" name="selection" value="4" class="btn btn-default btn-sm  col-xs-3 foote_btncl">
+												エ
+										</button>
+								</div>
+								<!-- 選択肢end -->
+								<!-- 次へstart -->
+								<div class="row">
+										<button type="button" class="btn btn-default btn-sm col-xs-12 col-xs-offset-0 foot_next">
+												回答
+										</button>
+								</div>
+								<!-- 次へend -->
+					</div>
+					<script src="js/jquery.js"></script>
+					<script src="js/bootstrap.min.js"></script>
+					<script>
+						$(document).ready(function() {
+								var question = JSON.parse(jsQuestion.getJson());
+								var season   = "";
+								if(question["season"] === "1") {
+										season = "春季";
+								} else if(question["season"] === "2") {
+										season = "秋季";
+								} else if (question["season"] === "3") {
+										season = "特別";
+								}
+								$('#title').html("平成" + question["year"] + "年度" + season);
+								$('#sentence').html("問題文：" + question["sentence"]);
+								$('#answer1').html("ア：" + question["answer1"]);
+								$('#answer2').html("イ：" + question["answer2"]);
+								$('#answer3').html("ウ：" + question["answer3"]);
+								$('#answer4').html("エ：" + question["answer4"]);
+						});
+					</script>
+				<!-- 画面ここまで -->
+			 </div>
+ </body>
+</html>
