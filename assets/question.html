@@ -16,6 +16,10 @@ and open the template in the editor.
 		 <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 	 <![endif]-->
 <style>
+html,body{
+	height:100%;
+}
+
 
 .title{
 	line-height:      40px;
@@ -24,6 +28,7 @@ and open the template in the editor.
 	top:              0;
 	left:             0;
 	background-color: #F90;
+	z-index:1;	
 }
 
 .set_nav{
@@ -32,12 +37,15 @@ and open the template in the editor.
 	right:            10px;
 	background-color: #FC6;
 	border:           none;
+	z-index:1;	
+
 }
 
 .main{
-	width:            95%;
+	width:95%;
 	margin-right:     auto;
 	margin-left:      auto;
+	padding-bottom:200px;
 }
 .foote_btncl{
 	padding-top:      15px;
@@ -53,6 +61,23 @@ and open the template in the editor.
 	border:           none;
 }
 
+.footer_btm{
+	width:95%;
+	margin-right:     auto;
+	margin-left:      auto;
+	right:0;
+	left:0;
+	height:20%;
+	bottom:5%;
+	position:absolute;
+}
+.wid{
+	width:95%;
+	margin-right:auto;
+	margin-left:auto;
+
+}
+
 </style>
  </head>
  <body style="padding-top:70px;">
@@ -63,7 +88,7 @@ and open the template in the editor.
 							 <p id="title"></p>
 						</div>
 						<button type="button" class="btn btn-default btn-sm set_nav">
-		<i class="glyphicon glyphicon-asterisk"></i>
+							<i class="glyphicon glyphicon-cog"></i>
 						</button>
 					 </div>
 				<!-- ヘッダーここまで -->
@@ -83,9 +108,11 @@ and open the template in the editor.
 										<p id="answer3"></p>
 										<p id="answer4"></p>
 								</div>
-								<!-- 問題入力start -->
+								<!-- 問題入力end -->
+					</div>
+					<div class="row footer_btm">
 								<!-- 選択肢start -->
-								<div class="row">
+								<div class="row footer_wid">
 										<button type="radio" name="selection" value="1" class="btn btn-default btn-sm col-xs-3 foote_btncl">
 												ア
 										</button>
@@ -101,7 +128,7 @@ and open the template in the editor.
 								</div>
 								<!-- 選択肢end -->
 								<!-- 次へstart -->
-								<div class="row">
+								<div class="row wid">
 										<button type="button" class="btn btn-default btn-sm col-xs-12 col-xs-offset-0 foot_next">
 												回答
 										</button>
