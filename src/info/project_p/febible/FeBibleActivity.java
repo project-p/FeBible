@@ -2,6 +2,7 @@ package info.project_p.febible;
 
 import java.io.IOException;
 
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.database.SQLException;
@@ -48,8 +49,12 @@ public class FeBibleActivity extends FragmentActivity {
 
 		// FragmentTransactionの開始
 		FragmentTransaction ft = fragmentManager.beginTransaction();
+		// 次のFragmentの取得
+		FeBibleFragment f = fragment.getNextFragment();
+		// fragmentを置き換え
+		fragment = f;
 		// fragmentの置き換え
-		ft.replace(R.id.fragment_container, fragment.getNextFragment());
+		ft.replace(R.id.fragment_container, f);
 		// 置き換える前のfragmentをBackStackに追加する
 		ft.addToBackStack(null);
 		// Transactionの終了
