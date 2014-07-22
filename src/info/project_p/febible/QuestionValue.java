@@ -1,8 +1,8 @@
 /**
- * QuestionValueƒNƒ‰ƒX 
+ * QuestionValueã‚¯ãƒ©ã‚¹ 
  * 
- * SQLiteDatabase‚©‚çŒŸõğŒ‚ğ‚à‚Æ‚ÉŒŸõ‚ğs‚¢AŒŸõŒ‹‰Ê‚Ì’l‚ğ•Û‚·‚é’lƒIƒuƒWƒFƒNƒgB
- * ‚±‚ÌƒIƒuƒWƒFƒNƒg‚ÍImmutable‚Å‚ ‚éB
+ * SQLiteDatabaseã‹ã‚‰æ¤œç´¢æ¡ä»¶ã‚’ã‚‚ã¨ã«æ¤œç´¢ã‚’è¡Œã„ã€æ¤œç´¢çµæœã®å€¤ã‚’ä¿æŒã™ã‚‹å€¤ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã€‚
+ * ã“ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã¯Immutableã§ã‚ã‚‹ã€‚
  */
 package info.project_p.febible;
 
@@ -15,37 +15,38 @@ import org.codehaus.jackson.map.ObjectMapper;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.webkit.JavascriptInterface;
 
 public class QuestionValue {
 	private SQLiteDatabase mDb;
 	
-	// ƒf[ƒ^‚ğæ“¾‚·‚éƒJƒ‰ƒ€
+	// ãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—ã™ã‚‹ã‚«ãƒ©ãƒ 
 	private final String[] COLMUNS = {
-			"_id"                , // åƒL[
-			"year"               , // o‘è”N“x
-			"season"             , // o‘èŠú
-			"field_name"         , // •ª–ì–¼
-			"largeCategory_name" , // ‘å•ª—Ş–¼
-			"middleCategory_name", // ’†•ª—Ş–¼
-			"smallCategory_name" , // ¬•ª—Ş–¼
-			"number"             , // –â‘è”Ô†
-			"sentence"           , // –â‘è•¶
-			"collectAnswer"      , // ³‰ğ‚Ì‘I‘ğˆi1`4j
-			"answer1"            , // ‘I‘ğˆ1
-			"answer2"            , // ‘I‘ğˆ2
-			"answer3"            , // ‘I‘ğˆ3
-			"answer4"            , // ‘I‘ğˆ4
+			"_id"                , // ä¸»ã‚­ãƒ¼
+			"year"               , // å‡ºé¡Œå¹´åº¦
+			"season"             , // å‡ºé¡Œæ™‚æœŸ
+			"field_name"         , // åˆ†é‡å
+			"largeCategory_name" , // å¤§åˆ†é¡å
+			"middleCategory_name", // ä¸­åˆ†é¡å
+			"smallCategory_name" , // å°åˆ†é¡å
+			"number"             , // å•é¡Œç•ªå·
+			"sentence"           , // å•é¡Œæ–‡
+			"collectAnswer"      , // æ­£è§£ã®é¸æŠè‚¢ï¼ˆ1ï½4ï¼‰
+			"answer1"            , // é¸æŠè‚¢1
+			"answer2"            , // é¸æŠè‚¢2
+			"answer3"            , // é¸æŠè‚¢3
+			"answer4"            , // é¸æŠè‚¢4
 	};
-	// ŒŸõğŒ‚©‚çæ“¾‚µ‚½’l‚ğ•Û‚·‚éƒ}ƒbƒv
+	// æ¤œç´¢æ¡ä»¶ã‹ã‚‰å–å¾—ã—ãŸå€¤ã‚’ä¿æŒã™ã‚‹ãƒãƒƒãƒ—
 	private HashMap<String, String> mMap;
-	// –â‘è‚ÌID
+	// å•é¡Œã®ID
 	private String mId;
 	
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^B
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã€‚
 	 * 
-	 * @param context ƒAƒNƒeƒBƒrƒeƒB‚ÌƒCƒ“ƒXƒ^ƒ“ƒX
-	 * @param id      _id‚Ì’l
+	 * @param context ã‚¢ã‚¯ãƒ†ã‚£ãƒ“ãƒ†ã‚£ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
+	 * @param id      _idã®å€¤
 	 */
 	public QuestionValue(Context context,  String id) {
 		DataBaseHelper dbHelper = new DataBaseHelper(context);
@@ -56,22 +57,24 @@ public class QuestionValue {
 	}
 	
 	/**
-	 * ƒJƒ‰ƒ€–¼‚ğ•¶š—ñ‚Åw’è‚·‚é‚Æ’l‚ğ•Ô‚·B
-	 * ƒJƒ‰ƒ€–¼‚Ìƒf[ƒ^‚ª‘¶İ‚µ‚È‚¢ê‡A‹ó”’‚ğ•Ô‚·B
+	 * ã‚«ãƒ©ãƒ åã‚’æ–‡å­—åˆ—ã§æŒ‡å®šã™ã‚‹ã¨å€¤ã‚’è¿”ã™ã€‚
+	 * ã‚«ãƒ©ãƒ åã®ãƒ‡ãƒ¼ã‚¿ãŒå­˜åœ¨ã—ãªã„å ´åˆã€ç©ºç™½ã‚’è¿”ã™ã€‚
 	 * 
-	 * @param column ƒJƒ‰ƒ€–¼‚Ì•¶š—ñ
-	 * @return w’è‚³‚ê‚½ƒJƒ‰ƒ€‚Ì’l
+	 * @param column ã‚«ãƒ©ãƒ åã®æ–‡å­—åˆ—
+	 * @return æŒ‡å®šã•ã‚ŒãŸã‚«ãƒ©ãƒ ã®å€¤
 	 */
+	@JavascriptInterface
 	public String getValue(String column) {
 		String str = mMap.get(column);
 		return (str != null)? str : "";
 	}
 	
 	/**
-	 * ŒŸõŒ‹‰Ê‚ğJSONŒ`®‚Ì•¶š—ñ‚Æ‚µ‚Ä•Ô‚·B
+	 * æ¤œç´¢çµæœã‚’JSONå½¢å¼ã®æ–‡å­—åˆ—ã¨ã—ã¦è¿”ã™ã€‚
 	 * 
-	 * @return JSONŒ`®‚Ì•¶š—ñ
+	 * @return JSONå½¢å¼ã®æ–‡å­—åˆ—
 	 */
+	@JavascriptInterface
 	public String getJson() {
 
 		ObjectMapper mapper = new ObjectMapper();
@@ -87,13 +90,13 @@ public class QuestionValue {
 	}
 	
 	/**
-	 * ƒf[ƒ^ƒx[ƒX‚ÉƒNƒGƒŠ‚ğ”­s‚µAƒtƒB[ƒ‹ƒh‚Éæ“¾‚µ‚½’l‚ğƒZƒbƒg‚·‚é
+	 * ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ã«ã‚¯ã‚¨ãƒªã‚’ç™ºè¡Œã—ã€ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã«å–å¾—ã—ãŸå€¤ã‚’ã‚»ãƒƒãƒˆã™ã‚‹
 	 */
 	private void setDataToMap() {			
-		String table  = "v_question"; // ƒe[ƒuƒ‹–¼
-		String[] args = { mId };   // ƒvƒŒ[ƒXƒzƒ‹ƒ_‚Ì”z—ñ
+		String table  = "v_question"; // ãƒ†ãƒ¼ãƒ–ãƒ«å
+		String[] args = { mId };   // ãƒ—ãƒ¬ãƒ¼ã‚¹ãƒ›ãƒ«ãƒ€ã®é…åˆ—
 		
-		// ŒŸõ‚ğÀs‚µAŒ‹‰Ê‚ğHashMap‚É•Û‘¶‚·‚é
+		// æ¤œç´¢ã‚’å®Ÿè¡Œã—ã€çµæœã‚’HashMapã«ä¿å­˜ã™ã‚‹
 		Cursor c = null;
 		try {
 			c = mDb.query(table, COLMUNS, "_id = ?", args, null, null, null);

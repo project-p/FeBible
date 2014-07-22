@@ -102,7 +102,7 @@ and open the template in the editor.
 								<!-- 選択肢end -->
 								<!-- 次へstart -->
 								<div class="row">
-										<button type="button" class="btn btn-default btn-sm col-xs-12 col-xs-offset-0 foot_next">
+										<button type="button" class="btn btn-default btn-sm col-xs-12 col-xs-offset-0 foot_next" id="Next">
 												回答
 										</button>
 								</div>
@@ -111,7 +111,7 @@ and open the template in the editor.
 					<script src="js/jquery.js"></script>
 					<script src="js/bootstrap.min.js"></script>
 					<script>
-						$(document).ready(function() {
+						function loadQuestion() {
 								var question = JSON.parse(jsQuestion.getJson());
 								var season   = "";
 								if(question["season"] === "1") {
@@ -127,7 +127,11 @@ and open the template in the editor.
 								$('#answer2').html("イ：" + question["answer2"]);
 								$('#answer3').html("ウ：" + question["answer3"]);
 								$('#answer4').html("エ：" + question["answer4"]);
-						});
+								$('#Next').click(function(){
+									activity.goNextPage();
+								});
+						}
+						$(document).ready(loadQuestion);
 					</script>
 				<!-- 画面ここまで -->
 			 </div>

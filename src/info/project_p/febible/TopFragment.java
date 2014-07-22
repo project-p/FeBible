@@ -1,27 +1,29 @@
 package info.project_p.febible;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 public class TopFragment extends FeBibleFragment {
 	private final String URL = "file:///android_asset/top.html";
 
-	// Resume‚Ìƒ^ƒCƒ~ƒ“ƒO‚ÅŒÄ‚Ño‚³‚ê‚é‚½‚ß‹ó‚ÌƒRƒ“ƒXƒgƒ‰ƒNƒ^‚ğéŒ¾‚µ‚Ä‚¨‚­‚ç‚µ‚¢
+	// Resumeã®ã‚¿ã‚¤ãƒŸãƒ³ã‚°ã§å‘¼ã³å‡ºã•ã‚Œã‚‹ãŸã‚ç©ºã®ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã‚’å®£è¨€ã—ã¦ãŠãã‚‰ã—ã„
 	public TopFragment(){}
 	
-	@SuppressLint("SetJavaScriptEnabled")
 	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
+	public void onActivityCreated(Bundle bundle) {
+		super.onActivityCreated(bundle);
 
-		// WebView‚Éw’è‚µ‚½ƒtƒ@ƒCƒ‹‚ğ“Ç‚İ‚Ü‚¹‚é
+		// WebViewã«æŒ‡å®šã—ãŸãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã¿è¾¼ã¾ã›ã‚‹
 		webView.loadUrl(URL);
 	}
 	
-	/**
-	 * Ÿ‚Ì‰æ–Ê‚Æ‚µ‚ÄQuestionFragment‚ğ“n‚·
-	 */
-	public FeBibleFragment getNextFragment() {
-		return new QuestionFragment();
+	@Override
+	public void onStart() {
+		// TODO è‡ªå‹•ç”Ÿæˆã•ã‚ŒãŸãƒ¡ã‚½ãƒƒãƒ‰ãƒ»ã‚¹ã‚¿ãƒ–
+		super.onStart();
+	}
+	
+	@Override
+	public String getNextPageTag() {
+		return "question";
 	}
 }

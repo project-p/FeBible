@@ -13,9 +13,9 @@ import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class DataBaseHelper extends SQLiteOpenHelper {
-    private static String DB_NAME = "project_p_FE";          // ’[––“à‚Ìƒf[ƒ^ƒx[ƒX–¼
-    private static String DB_NAME_ASSET = "project_p.db"; // AssetƒtƒHƒ‹ƒ_“à‚Ìƒf[ƒ^ƒx[ƒXƒtƒ@ƒCƒ‹–¼
-    private static final int DATABASE_VERSION = 2;        // AssetƒtƒHƒ‹ƒ_“à‚Ìƒf[ƒ^ƒx[ƒX‚Ìƒo[ƒWƒ‡ƒ“
+    private static String DB_NAME = "project_p_FE";          // ç«¯æœ«å†…ã®ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹å
+    private static String DB_NAME_ASSET = "project_p.db"; // Assetãƒ•ã‚©ãƒ«ãƒ€å†…ã®ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ãƒ•ã‚¡ã‚¤ãƒ«å
+    private static final int DATABASE_VERSION = 3;        // Assetãƒ•ã‚©ãƒ«ãƒ€å†…ã®ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³
 
     private SQLiteDatabase mDatabase;
     private final Context mContext;
@@ -28,19 +28,19 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * asset ‚ÉŠi”[‚µ‚½ƒf[ƒ^ƒx[ƒX‚ðƒRƒs[‚·‚é‚½‚ß‚Ì‹ó‚Ìƒf[ƒ^ƒx[ƒX‚ðì¬‚·‚é
+     * asset ã«æ ¼ç´ã—ãŸãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ã‚’ã‚³ãƒ”ãƒ¼ã™ã‚‹ãŸã‚ã®ç©ºã®ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ã‚’ä½œæˆã™ã‚‹
      */
     public void createEmptyDataBase() throws IOException {
         boolean dbExist = checkDataBaseExists();
 
         if (dbExist) {
-            // ‚·‚Å‚Éƒf[ƒ^ƒx[ƒX‚Íì¬‚³‚ê‚Ä‚¢‚é
+            // ã™ã§ã«ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ã¯ä½œæˆã•ã‚Œã¦ã„ã‚‹
         } else {
-            // ‚±‚Ìƒƒ\ƒbƒh‚ðŒÄ‚Ô‚±‚Æ‚ÅA‹ó‚Ìƒf[ƒ^ƒx[ƒX‚ªƒAƒvƒŠ‚ÌƒfƒtƒHƒ‹ƒgƒVƒXƒeƒ€ƒpƒX‚Éì‚ç‚ê‚é
+            // ã“ã®ãƒ¡ã‚½ãƒƒãƒ‰ã‚’å‘¼ã¶ã“ã¨ã§ã€ç©ºã®ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ãŒã‚¢ãƒ—ãƒªã®ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã‚·ã‚¹ãƒ†ãƒ ãƒ‘ã‚¹ã«ä½œã‚‰ã‚Œã‚‹
             getReadableDatabase();
 
             try {
-                // asset ‚ÉŠi”[‚µ‚½ƒf[ƒ^ƒx[ƒX‚ðƒRƒs[‚·‚é
+                // asset ã«æ ¼ç´ã—ãŸãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ã‚’ã‚³ãƒ”ãƒ¼ã™ã‚‹
                 copyDataBaseFromAsset();
 
                 String dbPath = mDatabasePath.getAbsolutePath();
@@ -62,9 +62,9 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     } 
 
     /**
-     * ÄƒRƒs[‚ð–hŽ~‚·‚é‚½‚ß‚ÉA‚·‚Å‚Éƒf[ƒ^ƒx[ƒX‚ª‚ ‚é‚©‚Ç‚¤‚©”»’è‚·‚é
+     * å†ã‚³ãƒ”ãƒ¼ã‚’é˜²æ­¢ã™ã‚‹ãŸã‚ã«ã€ã™ã§ã«ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ãŒã‚ã‚‹ã‹ã©ã†ã‹åˆ¤å®šã™ã‚‹
      *
-     * @return ‘¶Ý‚µ‚Ä‚¢‚éê‡ {@code true}
+     * @return å­˜åœ¨ã—ã¦ã„ã‚‹å ´åˆ {@code true}
      */
     private boolean checkDataBaseExists() {
         String dbPath = mDatabasePath.getAbsolutePath();
@@ -73,11 +73,11 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         try {
             checkDb = SQLiteDatabase.openDatabase(dbPath, null, SQLiteDatabase.OPEN_READONLY);
         } catch (SQLiteException e) {
-            // ƒf[ƒ^ƒx[ƒX‚Í‚Ü‚¾‘¶Ý‚µ‚Ä‚¢‚È‚¢
+            // ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ã¯ã¾ã å­˜åœ¨ã—ã¦ã„ãªã„
         }
 
         if (checkDb == null) {
-            // ƒf[ƒ^ƒx[ƒX‚Í‚Ü‚¾‘¶Ý‚µ‚Ä‚¢‚È‚¢
+            // ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ã¯ã¾ã å­˜åœ¨ã—ã¦ã„ãªã„
             return false;
         }
 
@@ -85,29 +85,29 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         int newVersion = DATABASE_VERSION;
 
         if (oldVersion == newVersion) {
-            // ƒf[ƒ^ƒx[ƒX‚Í‘¶Ý‚µ‚Ä‚¢‚ÄÅV
+            // ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ã¯å­˜åœ¨ã—ã¦ã„ã¦æœ€æ–°
             checkDb.close();
             return true;
         }
 
-        // ƒf[ƒ^ƒx[ƒX‚ª‘¶Ý‚µ‚Ä‚¢‚ÄÅV‚Å‚Í‚È‚¢‚Ì‚Åíœ
+        // ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ãŒå­˜åœ¨ã—ã¦ã„ã¦æœ€æ–°ã§ã¯ãªã„ã®ã§å‰Šé™¤
         File f = new File(dbPath);
         f.delete();
         return false;
     }
 
     /**
-     * asset ‚ÉŠi”[‚µ‚½ƒf[ƒ^ƒx[ƒX‚ðƒfƒtƒHƒ‹ƒg‚Ìƒf[ƒ^ƒx[ƒXƒpƒX‚Éì¬‚µ‚½‹ó‚Ìƒf[ƒ^ƒx[ƒX‚ÉƒRƒs[‚·‚é
+     * asset ã«æ ¼ç´ã—ãŸãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ã‚’ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ãƒ‘ã‚¹ã«ä½œæˆã—ãŸç©ºã®ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ã«ã‚³ãƒ”ãƒ¼ã™ã‚‹
      */
     private void copyDataBaseFromAsset() throws IOException{
 
-        // asset “à‚Ìƒf[ƒ^ƒx[ƒXƒtƒ@ƒCƒ‹‚ÉƒAƒNƒZƒX
+        // asset å†…ã®ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ãƒ•ã‚¡ã‚¤ãƒ«ã«ã‚¢ã‚¯ã‚»ã‚¹
         InputStream mInput = mContext.getAssets().open(DB_NAME_ASSET);
 
-        // ƒfƒtƒHƒ‹ƒg‚Ìƒf[ƒ^ƒx[ƒXƒpƒX‚Éì¬‚µ‚½‹ó‚ÌDB
+        // ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ãƒ‘ã‚¹ã«ä½œæˆã—ãŸç©ºã®DB
         OutputStream mOutput = new FileOutputStream(mDatabasePath);
 
-        // ƒRƒs[
+        // ã‚³ãƒ”ãƒ¼
         byte[] buffer = new byte[1024];
         int size;
         while ((size = mInput.read(buffer)) > 0) {

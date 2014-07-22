@@ -1,8 +1,7 @@
 package info.project_p.febible;
 
 import java.io.IOException;
-
-import android.app.Fragment;
+import java.util.HashMap;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.database.SQLException;
@@ -13,71 +12,87 @@ import android.view.MenuItem;
 import android.view.Window;
 
 public class FeBibleActivity extends FragmentActivity {
-	private FeBibleFragment fragment;
-	
+	private FeBibleFragment mFragment;
+	private HashMap<String, FeBibleFragment> mFragmentMap;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-			
-		// ƒAƒNƒVƒ‡ƒ“ƒo[‚ğÁ‚·
+
+		// ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ãƒãƒ¼ã‚’æ¶ˆã™
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		
-		// ƒf[ƒ^ƒx[ƒX‚Ì‰Šúİ’è
+
+		// ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ã®åˆæœŸè¨­å®š
 		setDatabase();
-		
-		// FragmentManager‚ğæ“¾‚µAFragmentTransaction‚ğŠJn
+
+		mFragment = new TopFragment();
+		// FragmentManagerã‚’å–å¾—ã—ã€FragmentTransactionã‚’é–‹å§‹
 		FragmentManager fragmentManager = getFragmentManager();
 		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-		// ‰Šú‰æ–Ê‚Æ‚µ‚ÄTopFragment‚ğİ’è‚µAmain.xml‚Ìfragment_container‚ÉŠ„‚è“–‚Ä
-		fragment = new TopFragment();
-		fragmentTransaction.add(R.id.fragment_container, fragment);
-		
-		// FragmentTransaction‚ÌI—¹
+		// åˆæœŸç”»é¢ã¨ã—ã¦TopFragmentã‚’è¨­å®šã—ã€main.xmlã®fragment_containerã«å‰²ã‚Šå½“ã¦
+		fragmentTransaction.add(R.id.fragment_container, mFragment);
+
+		// FragmentTransactionã®çµ‚äº†
 		fragmentTransaction.commit();
-		
-		// ƒŒƒCƒAƒEƒg‚Ì“Ç‚İ‚İ
+
+		mFragmentMap = new HashMap<String, FeBibleFragment>();
+		mFragmentMap.put("top"     , mFragment             );
+		mFragmentMap.put("question", new QuestionFragment());
+		mFragmentMap.put("result"  , new ResultFragment()  );
+
+		// ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆã®èª­ã¿è¾¼ã¿
 		setContentView(R.layout.main);
 	}
-	
+
 	/**
-	 * ƒy[ƒW‘JˆÚ‚ğs‚¤ƒƒ\ƒbƒh
-	 * WebView‚©‚çŒÄ‚Ño‚³‚êAƒƒ“ƒo•Ï”fragment‚©‚çŸ‚Ìƒy[ƒW‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğæ“¾‚µ‚Äfragment‚ğØ‚è‘Ö‚¦‚é
+	 * ãƒšãƒ¼ã‚¸é·ç§»ã‚’è¡Œã†ãƒ¡ã‚½ãƒƒãƒ‰
+	 * WebViewã‹ã‚‰å‘¼ã³å‡ºã•ã‚Œã€ãƒ¡ãƒ³ãƒå¤‰æ•°fragmentã‹ã‚‰æ¬¡ã®ãƒšãƒ¼ã‚¸ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’å–å¾—ã—ã¦fragmentã‚’åˆ‡ã‚Šæ›¿ãˆã‚‹
 	 */
 	public void goNextPage() {
 		FragmentManager fragmentManager = getFragmentManager();
 
-		// FragmentTransaction‚ÌŠJn
+		// FragmentTransactionã®é–‹å§‹
 		FragmentTransaction ft = fragmentManager.beginTransaction();
-		// Ÿ‚ÌFragment‚Ìæ“¾
-		FeBibleFragment f = fragment.getNextFragment();
-		// fragment‚ğ’u‚«Š·‚¦
-		fragment = f;
-		// fragment‚Ì’u‚«Š·‚¦
-		ft.replace(R.id.fragment_container, f);
-		// ’u‚«Š·‚¦‚é‘O‚Ìfragment‚ğBackStack‚É’Ç‰Á‚·‚é
+		// æ¬¡ã®Fragmentã®å–å¾—
+		mFragment = (FeBibleFragment)getFragmentManager().findFragmentById(R.id.fragment_container);
+		mFragment = mFragmentMap.get(mFragment.getNextPageTag());
+		// fragmentã®ç½®ãæ›ãˆ
+		ft.replace(R.id.fragment_container, mFragment);
+		// ç½®ãæ›ãˆã‚‹å‰ã®fragmentã‚’BackStackã«è¿½åŠ ã™ã‚‹
 		ft.addToBackStack(null);
-		// Transaction‚ÌI—¹
+		// Transactionã®çµ‚äº†
 		ft.commit();
 	}
-	
+
 	/**
-	 * ƒoƒbƒNƒL[‚ª‰Ÿ‚³‚ê‚½‚Ìˆ—B
-	 * FragmentManager‚ÌBackStack‚©‚çfragment‚ğƒ|ƒbƒv‚µAˆÈ‘O‚Ì‰æ–Ê‚ğ•\¦‚·‚é
-	 * BackStack‚ª‹ó‚Ìê‡‚Íƒgƒbƒvƒy[ƒW‚È‚Ì‚ÅAƒAƒvƒŠ‚ğI—¹‚·‚é
+	 * ãƒãƒƒã‚¯ã‚­ãƒ¼ãŒæŠ¼ã•ã‚ŒãŸæ™‚ã®å‡¦ç†ã€‚
+	 * FragmentManagerã®BackStackã‹ã‚‰fragmentã‚’ãƒãƒƒãƒ—ã—ã€ä»¥å‰ã®ç”»é¢ã‚’è¡¨ç¤ºã™ã‚‹
+	 * BackStackãŒç©ºã®å ´åˆã¯ãƒˆãƒƒãƒ—ãƒšãƒ¼ã‚¸ãªã®ã§ã€ã‚¢ãƒ—ãƒªã‚’çµ‚äº†ã™ã‚‹
 	 */
 	@Override
 	public void onBackPressed(){
-	   if (0 !=getFragmentManager().getBackStackEntryCount()){
-	      getFragmentManager().popBackStack();
-	   } else {
-		   finish();
-	   }
-
+		// æŠ¼ã•ã‚ŒãŸæ™‚ã®backstackã«ç©ã¾ã‚Œã¦ã„ã‚‹æ•°ã§å¤šå²åˆ†å²
+		switch(getFragmentManager().getBackStackEntryCount()){
+		// 0å€‹ï¼ˆï¼Topç”»é¢ï¼‰ã®å ´åˆã€ã‚¢ãƒ—ãƒªã‚’çµ‚äº†ã™ã‚‹
+		case 0:
+			finish();
+			break;
+		// 1å€‹ï¼ˆï¼Topç”»é¢ã«æˆ»ã‚‹ï¼‰å ´åˆã€backstackã‹ã‚‰å–ã‚Šå‡ºã™
+		case 1:
+			getFragmentManager().popBackStack();
+			break;
+		// ãã‚Œä»¥å¤–ã®å ´åˆã¯backPage()ã‚’å‘¼ã‚“ã§æˆ»ã‚‹å‡¦ç†ã‚’è¡Œã†
+		default:
+			mFragment = (FeBibleFragment)getFragmentManager().findFragmentById(R.id.fragment_container);
+			mFragment.backPage();
+			getFragmentManager().popBackStack();
+			break;
+		}
 	}
 
 	/**
-	 * assetƒtƒHƒ‹ƒ_“à‚Ìƒf[ƒ^ƒx[ƒX‚ğ’[––“à‚Ìƒf[ƒ^ƒx[ƒX‚Ö’Ç‰Á‚·‚éˆ—
+	 * assetãƒ•ã‚©ãƒ«ãƒ€å†…ã®ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ã‚’ç«¯æœ«å†…ã®ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ã¸è¿½åŠ ã™ã‚‹å‡¦ç†
 	 */
 	private void setDatabase(){
 		DataBaseHelper db = new DataBaseHelper(this);
@@ -89,15 +104,15 @@ public class FeBibleActivity extends FragmentActivity {
 			throw e;
 		}
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-	
-	
+
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will

@@ -1,6 +1,6 @@
-/* FeBibleƒAƒvƒŠ‚É‚¨‚¯‚éFragment‚ÌŠî’êƒNƒ‰ƒX‚Å‚ ‚èAWebViewFragment‚ÌƒTƒuƒNƒ‰ƒXB
+/* FeBibleã‚¢ãƒ—ãƒªã«ãŠã‘ã‚‹Fragmentã®åŸºåº•ã‚¯ãƒ©ã‚¹ã§ã‚ã‚Šã€WebViewFragmentã®ã‚µãƒ–ã‚¯ãƒ©ã‚¹ã€‚
  * 
- * ‰æ–Ê‘JˆÚ‚Ì‚½‚ß‚ÉŸ‚Ì‰æ–Ê‚ğæ“¾‚·‚é’ŠÛƒƒ\ƒbƒh‚Å‚ ‚égetNextPageFragment‚ğƒI[ƒo[ƒ‰ƒCƒh‚·‚é‚±‚ÆB
+ * ç”»é¢é·ç§»ã®ãŸã‚ã«æ¬¡ã®ç”»é¢ã‚’å–å¾—ã™ã‚‹æŠ½è±¡ãƒ¡ã‚½ãƒƒãƒ‰ã§ã‚ã‚‹getNextPageFragmentã‚’ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰ã™ã‚‹ã“ã¨ã€‚
  */
 
 package info.project_p.febible;
@@ -14,42 +14,44 @@ import android.webkit.WebView;
 import android.webkit.WebViewFragment;
 
 public abstract class FeBibleFragment extends WebViewFragment {
-	WebView webView;
+	public WebView webView;
 	
 	/**
-	 * Œp³‚µ‚½Fragment‚©‚ç‚Ì‘JˆÚæFragment‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğæ“¾‚·‚é’ŠÛƒƒ\ƒbƒhB
-	 * @return ‘JˆÚæ‚ÌFeBibleFragment‚ÌƒCƒ“ƒXƒ^ƒ“ƒX
+	 * ç¶™æ‰¿ã—ãŸFragmentã‹ã‚‰ã®é·ç§»å…ˆFragmentã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’å–å¾—ã™ã‚‹æŠ½è±¡ãƒ¡ã‚½ãƒƒãƒ‰ã€‚
+	 * @return é·ç§»å…ˆã®FeBibleFragmentã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
 	 */
-	abstract public FeBibleFragment getNextFragment();
+	abstract public String getNextPageTag();
+	
+	public void backPage(){};
 	
 	/**
-	 * onActivityCreated‚Ìƒ^ƒCƒ~ƒ“ƒO‚ÅwebView‚Ì¶¬‚ğs‚¤B
+	 * onActivityCreatedã®ã‚¿ã‚¤ãƒŸãƒ³ã‚°ã§webViewã®ç”Ÿæˆã‚’è¡Œã†ã€‚
 	 */
 	@SuppressLint("SetJavaScriptEnabled")
 	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
+	public void onActivityCreated(Bundle bundle) {
+		super.onActivityCreated(bundle);
 		
-		// webView‚ğæ“¾‚µAJavaScript‚ÌÀs‚ğ‹–‰Â
+		// webViewã‚’å–å¾—ã—ã€JavaScriptã®å®Ÿè¡Œã‚’è¨±å¯
 		webView = getWebView();
 		webView.getSettings().setJavaScriptEnabled(true);
 		
-		// JavaScript‚ÌƒfƒoƒbƒO—p‚Éconsoleƒƒ\ƒbƒh‚ğƒI[ƒo[ƒ‰ƒCƒh‚µ‚ÄwebView‚ÉƒZƒbƒg
-		// webView‘¤‚Åuconsole.log()v‚ğ—˜—p‚·‚é‚ÆŒ‹‰Ê‚ªƒRƒ“ƒ\[ƒ‹‚É•\¦‚³‚ê‚é
-		webView.setWebChromeClient(new WebChromeClient(){
-		    @Override
-		    public boolean onConsoleMessage(ConsoleMessage cm){
-		        Log.d("FeBible", cm.message() + "--From line " + cm.lineNumber() + " of " + cm.sourceId());
-		        return true;
-		    }
-		});
+		// JavaScriptã®ãƒ‡ãƒãƒƒã‚°ç”¨ã«consoleãƒ¡ã‚½ãƒƒãƒ‰ã‚’ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰ã—ã¦webViewã«ã‚»ãƒƒãƒˆ
+		// webViewå´ã§ã€Œconsole.log()ã€ã‚’åˆ©ç”¨ã™ã‚‹ã¨çµæœãŒã‚³ãƒ³ã‚½ãƒ¼ãƒ«ã«è¡¨ç¤ºã•ã‚Œã‚‹
+//		webView.setWebChromeClient(new WebChromeClient(){
+//		    @Override
+//		    public boolean onConsoleMessage(ConsoleMessage cm){
+//		        Log.d("FeBible", cm.message() + "--From line " + cm.lineNumber() + " of " + cm.sourceId());
+//		        return true;
+//		    }
+//		});
 		
-		// ‰æ–Ê‘JˆÚ‚Ì‚½‚ß‚ÉContext‚Æ‚µ‚ÄActivity‚ğ“n‚·
+		// ç”»é¢é·ç§»ã®ãŸã‚ã«Contextã¨ã—ã¦Activityã‚’æ¸¡ã™
 		webView.addJavascriptInterface(getActivity(), "activity");
 	}
 	
 	/**
-	 * •\¦‚³‚ê‚Ä‚¢‚éwebView‚ÌƒŠƒ[ƒh‚ğs‚¤ƒƒ\ƒbƒh
+	 * è¡¨ç¤ºã•ã‚Œã¦ã„ã‚‹webViewã®ãƒªãƒ­ãƒ¼ãƒ‰ã‚’è¡Œã†ãƒ¡ã‚½ãƒƒãƒ‰
 	 */
 	public void reload() {
 		webView.reload();

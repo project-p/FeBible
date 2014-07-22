@@ -1,35 +1,51 @@
 package info.project_p.febible;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 
 public class QuestionFragment extends FeBibleFragment {
 	private final String URL = "file:///android_asset/question.html";
+	private Context mContext;
 	
-	// Resume‚Ìƒ^ƒCƒ~ƒ“ƒO‚ÅŒÄ‚Ño‚³‚ê‚é‚½‚ß‹ó‚ÌƒRƒ“ƒXƒgƒ‰ƒNƒ^‚ğéŒ¾‚µ‚Ä‚¨‚­‚ç‚µ‚¢
+	// Resumeã®ã‚¿ã‚¤ãƒŸãƒ³ã‚°ã§å‘¼ã³å‡ºã•ã‚Œã‚‹ãŸã‚ç©ºã®ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã‚’å®£è¨€ã—ã¦ãŠãã‚‰ã—ã„
 	public QuestionFragment() {}
 
 	@SuppressLint("SetJavaScriptEnabled")
 	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-		
-		// IdListManager‚©‚çƒ‰ƒ“ƒ_ƒ€‚Èid‚ğæ“¾‚µAŒŸõğŒ‚Æ‚µ‚Äİ’è‚·‚é
-		IdListManager idm = new IdListManager(getActivity());
-		String id = idm.getId();
-
-		// –â‘è‚Ì’lƒIƒuƒWƒFƒNƒg‚ğ¶¬‚µAwebView‚É“n‚·
-		QuestionValue question = new QuestionValue(getActivity(), id);
-		webView.addJavascriptInterface(question, "jsQuestion");
-
-		// WebView‚Éw’è‚µ‚½ƒtƒ@ƒCƒ‹‚ğ“Ç‚İ‚Ü‚¹‚é
-		webView.loadUrl(URL);
+	public void onActivityCreated(Bundle bundle) {
+		super.onActivityCreated(bundle);
+		mContext = getActivity();
 	}
 	
 	@Override
-	public FeBibleFragment getNextFragment() {
-		// Ÿ‚Ì‰æ–Ê‚ªo—ˆ‚Ä‚¢‚È‚¢‚Ì‚Å‰¼’l
-		// TODO: ‰ñ“š‰æ–Ê‚ÌFragment‚ğì¬‚µ‚½‚Ì‚¿‚ÉA–ß‚è’l‚ğC³‚·‚é
-		return this;
+	public void onStart() {
+		// TODO è‡ªå‹•ç”Ÿæˆã•ã‚ŒãŸãƒ¡ã‚½ãƒƒãƒ‰ãƒ»ã‚¹ã‚¿ãƒ–
+		super.onStart();
+		// IdListManagerã‹ã‚‰ãƒ©ãƒ³ãƒ€ãƒ ãªidã‚’å–å¾—ã—ã€æ¤œç´¢æ¡ä»¶ã¨ã—ã¦è¨­å®šã™ã‚‹
+		IdListManager idm = new IdListManager(mContext);
+		String id = idm.getId();
+
+		// å•é¡Œã®å€¤ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç”Ÿæˆã—ã€webViewã«æ¸¡ã™
+		QuestionValue question = new QuestionValue(getActivity(), id);
+		webView.addJavascriptInterface(question, "jsQuestion");
+
+		// WebViewã«æŒ‡å®šã—ãŸãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã¿è¾¼ã¾ã›ã‚‹
+		webView.loadUrl(URL);
+	}
+	
+	@SuppressLint("SetJavaScriptEnabled")
+	@Override
+	public String getNextPageTag() {
+		return "result";
+	}
+	
+	// æˆ»ã‚‹ãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚ŒãŸæ™‚ã€IdListã®indexã‚’-1ã™ã‚‹
+	@Override
+	public void backPage() {
+		IdListManager idm = new IdListManager(getActivity());
+		idm.indexDecrement();
+		Log.d("QuestionId", idm.getId());
 	}
 }

@@ -1,6 +1,6 @@
 /**
- * ƒAƒvƒŠƒP[ƒVƒ‡ƒ“‘S‘Ì‚Åİ’è”ÍˆÍ‚©‚çæ“¾‚µ‚½–â‘è‚ÌidƒŠƒXƒg‚ğŠÇ—‚·‚é‚½‚ß‚ÌƒIƒuƒWƒFƒNƒg
- * Singleton‚Ì‚½‚ßAƒCƒ“ƒXƒ^ƒ“ƒX‚Ìæ“¾‚ÍgetInstanceƒƒ\ƒbƒh‚ğ—˜—p‚µ‚Äs‚¤
+ * ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³å…¨ä½“ã§è¨­å®šç¯„å›²ã‹ã‚‰å–å¾—ã—ãŸå•é¡Œã®idãƒªã‚¹ãƒˆã‚’ç®¡ç†ã™ã‚‹ãŸã‚ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+ * Singletonã®ãŸã‚ã€ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®å–å¾—ã¯getInstanceãƒ¡ã‚½ãƒƒãƒ‰ã‚’åˆ©ç”¨ã—ã¦è¡Œã†
  */
 package info.project_p.febible;
 
@@ -10,69 +10,77 @@ import java.util.List;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 public class IdListManager {
-	// ƒvƒŠƒtƒ@ƒŒƒ“ƒX‚Ìƒtƒ@ƒCƒ‹–¼
+	// ãƒ—ãƒªãƒ•ã‚¡ãƒ¬ãƒ³ã‚¹ã®ãƒ•ã‚¡ã‚¤ãƒ«å
 	private final String FILE_NAME = "question_preference";
-	// Œ»İ“®ì’†‚ÌContextiActivityj
+	// ç¾åœ¨å‹•ä½œä¸­ã®Contextï¼ˆActivityï¼‰
 	private Context mContext;
-	// Context‚©‚çæ“¾‚µ‚½ƒvƒŠƒtƒ@ƒŒƒ“ƒX
+	// Contextã‹ã‚‰å–å¾—ã—ãŸãƒ—ãƒªãƒ•ã‚¡ãƒ¬ãƒ³ã‚¹
 	private SharedPreferences mPreferences;
-	// –â‘èID‚Ì”z—ñ‚ğ•Û‚·‚éƒƒ“ƒo•Ï”
+	// å•é¡ŒIDã®é…åˆ—ã‚’ä¿æŒã™ã‚‹ãƒ¡ãƒ³ãƒå¤‰æ•°
 	private ArrayList<String> mIdList;
-	// ‰ñ“šŒ‹‰Ê‚ğ•Û‚·‚éƒƒ“ƒo•Ï”
+	// å›ç­”çµæœã‚’ä¿æŒã™ã‚‹ãƒ¡ãƒ³ãƒå¤‰æ•°
 	private ArrayList<String> mAnswerList;
-	// ”z—ñ‚Ì“Y‚¦š‚ğ•Û‚·‚éƒƒ“ƒo•Ï”
+	// é…åˆ—ã®æ·»ãˆå­—ã‚’ä¿æŒã™ã‚‹ãƒ¡ãƒ³ãƒå¤‰æ•°
 	private int mIndex;
 	
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^B
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã€‚
 	 */
 	public IdListManager(Context context) {
 		mContext     = context;
-		mPreferences = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+		mPreferences = PreferenceManager.getDefaultSharedPreferences(context);
 		mIdList      = new ArrayList<String>();
 		mAnswerList  = new ArrayList<String>();
 		initialize();
 	}
 	
 	/**
-	 * İ’è”ÍˆÍ‚æ‚èæ“¾‚µ‚½–â‘è‚ÌID‚©‚çA’l‚ğæ“¾‚·‚éB
+	 * è¨­å®šç¯„å›²ã‚ˆã‚Šå–å¾—ã—ãŸå•é¡Œã®IDã‹ã‚‰ã€å€¤ã‚’å–å¾—ã™ã‚‹ã€‚
 	 * 
-	 * @return v_questionƒe[ƒuƒ‹‚ÌåƒL[
+	 * @return v_questionãƒ†ãƒ¼ãƒ–ãƒ«ã®ä¸»ã‚­ãƒ¼
 	 */
 	public String getId() {
 		return mIdList.get(mIndex);
 	}
 	
 	/**
-	 * mIndex‚ğ‘‚â‚·ˆ—‚ğÀ‘•
+	 * mIndexã‚’å¢—ã‚„ã™å‡¦ç†
 	 */
 	public void indexIncrement() {
-		// TODO: mIndex‚ğ‘‚â‚·ˆ—‚ğÀ‘•
-		// TODO: mIndex‚ª–â‘èId‚Ì’·‚³-1‚ğ’´‚¦‚½ê‡A–â‘èId‚Ì”z—ñ‚ğƒRƒs[‚µ‚Ä¡‚Ì”z—ñ‚ÌŒã‚ë‚É’Ç‰Á‚·‚é
+		mIndex += 1;
+		SharedPreferences.Editor editor = mPreferences.edit();
+		editor.putInt("index", mIndex);
+		editor.commit();
+
+		// TODO: mIndexãŒå•é¡ŒIdã®é•·ã•-1ã‚’è¶…ãˆãŸå ´åˆã€å•é¡ŒIdã®é…åˆ—ã‚’ã‚³ãƒ”ãƒ¼ã—ã¦ä»Šã®é…åˆ—ã®å¾Œã‚ã«è¿½åŠ ã™ã‚‹å‡¦ç†ã‚’å®Ÿè£…ã™ã‚‹
 	}
 	
 	/**
-	 * index‚ğŒ¸‚ç‚·ˆ—‚ğÀ‘•
-	 *
-	 * @throw NullPointerException index‚ª0ˆÈ‰º‚ÉŒÄ‚Î‚ê‚½ê‡A‚Ê‚é‚Û‚ªƒXƒ[‚³‚ê‚é
+	 * indexã‚’æ¸›ã‚‰ã™å‡¦ç†
 	 */
 	public void indexDecrement() {
-		// TODO: mIndex‚ğŒ¸‚ç‚·ˆ—‚ğÀ‘•
+		if(mIndex != 0) {
+			mIndex -= 1;
+		}
+		SharedPreferences.Editor editor = mPreferences.edit();
+		editor.putInt("index", mIndex);
+		editor.commit();
 	}
 	
 	public void addAnswerToList() {
-		// TODO: ‰ñ“šŒ‹‰Ê‚ğmAnswerList‚É’Ç‰Á‚·‚éˆ—‚ğÀ‘•
+		// TODO: å›ç­”çµæœã‚’mAnswerListã«è¿½åŠ ã™ã‚‹å‡¦ç†ã‚’å®Ÿè£…
 	}
 
 	/**
-	 * İ’è‚ª•ÏX‚³‚ê‚½Û‚È‚Ç‚ÉAƒvƒŠƒtƒ@ƒŒƒ“ƒX‚©‚çİ’è”ÍˆÍ‚Ì’l‚ğ“Ç‚İ‚ñ‚ÅidList‚ğ\’z‚µ‚È‚¨‚·ƒƒ\ƒbƒh
+	 * è¨­å®šãŒå¤‰æ›´ã•ã‚ŒãŸéš›ãªã©ã«ã€ãƒ—ãƒªãƒ•ã‚¡ãƒ¬ãƒ³ã‚¹ã‹ã‚‰è¨­å®šç¯„å›²ã®å€¤ã‚’èª­ã¿è¾¼ã‚“ã§idListã‚’æ§‹ç¯‰ã—ãªãŠã™ãƒ¡ã‚½ãƒƒãƒ‰
 	 */
 	protected void initialize() {
 		String idList = mPreferences.getString("id_list", "");
-		// ‹ó•¶š‚Å‚È‚¯‚ê‚Îsplit‚µ‚Äƒƒ“ƒo•Ï”‚É•ÛA
-		// ‹ó•¶š‚È‚çsetIdList‚Åİ’è‚ğ“Ç‚İ‚ñ‚Å”z—ñ‚ğì¬‚·‚é
+		// ç©ºæ–‡å­—ã§ãªã‘ã‚Œã°splitã—ã¦ãƒ¡ãƒ³ãƒå¤‰æ•°ã«ä¿æŒã€
+		// ç©ºæ–‡å­—ãªã‚‰setIdListã§è¨­å®šã‚’èª­ã¿è¾¼ã‚“ã§é…åˆ—ã‚’ä½œæˆã™ã‚‹
 		if(!idList.isEmpty()) {
 			mIdList = new ArrayList<String>(Arrays.asList(idList.split(",")));
 			
@@ -82,18 +90,18 @@ public class IdListManager {
 			setIdList();
 		}
 		
-		// Œ»İQÆ’†‚Ì“Y‚¦š‚ğƒvƒŠƒtƒ@ƒŒƒ“ƒX‚©‚çæ“¾
-		mIndex = Integer.parseInt(mPreferences.getString("index", "1"));
+		// ç¾åœ¨å‚ç…§ä¸­ã®æ·»ãˆå­—ã‚’ãƒ—ãƒªãƒ•ã‚¡ãƒ¬ãƒ³ã‚¹ã‹ã‚‰å–å¾—
+		mIndex = mPreferences.getInt("index", 0);
 	}
 	
 	/**
-	 * ƒvƒŠƒtƒ@ƒŒƒ“ƒX‚É•Û‘¶‚µ‚½İ’è”ÍˆÍ‚Ì’l‚ğ“Ç‚İ‚İA
-	 * İ’è”ÍˆÍ‚ÉŠY“–‚·‚év_questionƒe[ƒuƒ‹‚Ì_id‚ğƒƒ“ƒo•Ï”idList‚Éİ’è‚·‚éƒƒ\ƒbƒh
+	 * ãƒ—ãƒªãƒ•ã‚¡ãƒ¬ãƒ³ã‚¹ã«ä¿å­˜ã—ãŸè¨­å®šç¯„å›²ã®å€¤ã‚’èª­ã¿è¾¼ã¿ã€
+	 * è¨­å®šç¯„å›²ã«è©²å½“ã™ã‚‹v_questionãƒ†ãƒ¼ãƒ–ãƒ«ã®_idã‚’ãƒ¡ãƒ³ãƒå¤‰æ•°idListã«è¨­å®šã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
 	 */
 	protected void setIdList() {
-		// TODO: ƒvƒŠƒtƒ@ƒŒƒ“ƒX‚©‚ç’l‚ğ“Ç‚İ‚ñ‚ÅŒŸõ‚ğs‚¢A’l‚ğidList‚É’Ç‰Á‚·‚é‚æ‚¤C³
-		// TODO: ƒvƒŠƒtƒ@ƒŒƒ“ƒX‚É’l‚ª‘‚«‚Ü‚ê‚Ä‚¢‚È‚¢ê‡A‰Šú’l‚Ì‘‚«‚İ‚ğÀ‘•
-		// ƒvƒŠƒtƒ@ƒŒƒ“ƒX‚Ì‘‚«‚İ‚ğÀ‘•‚µ‚Ä‚¢‚È‚¢‚½‚ßA‰¼’l‚Æ‚µ‚Ä1`100‚ğƒZƒbƒg
+		// TODO: ãƒ—ãƒªãƒ•ã‚¡ãƒ¬ãƒ³ã‚¹ã‹ã‚‰å€¤ã‚’èª­ã¿è¾¼ã‚“ã§æ¤œç´¢ã‚’è¡Œã„ã€å€¤ã‚’idListã«è¿½åŠ ã™ã‚‹ã‚ˆã†ä¿®æ­£
+		// TODO: ãƒ—ãƒªãƒ•ã‚¡ãƒ¬ãƒ³ã‚¹ã«å€¤ãŒæ›¸ãè¾¼ã¾ã‚Œã¦ã„ãªã„å ´åˆã€åˆæœŸå€¤ã®æ›¸ãè¾¼ã¿ã‚’å®Ÿè£…
+		// ãƒ—ãƒªãƒ•ã‚¡ãƒ¬ãƒ³ã‚¹ã®æ›¸ãè¾¼ã¿ã‚’å®Ÿè£…ã—ã¦ã„ãªã„ãŸã‚ã€ä»®å€¤ã¨ã—ã¦1ï½100ã‚’ã‚»ãƒƒãƒˆ
 		for(int i=1;i<=100;i++) {
 			mIdList.add(Integer.toString(i));
 		}
