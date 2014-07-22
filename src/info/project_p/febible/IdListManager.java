@@ -4,8 +4,6 @@
  */
 package info.project_p.febible;
 
-import info.project_p.febible.R.id;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -23,7 +21,7 @@ public class IdListManager {
 	// 問題IDの配列を保持するメンバ変数
 	private ArrayList<String> mIdList;
 	// 回答結果を保持するメンバ変数
-	private List<String> mAnswerList;
+	private ArrayList<String> mAnswerList;
 	// 配列の添え字を保持するメンバ変数
 	private int mIndex;
 	
@@ -45,6 +43,23 @@ public class IdListManager {
 	 */
 	public String getId() {
 		return mIdList.get(mIndex);
+	}
+	
+	/**
+	 * mIndexを増やす処理を実装
+	 */
+	public void indexIncrement() {
+		// TODO: mIndexを増やす処理を実装
+		// TODO: mIndexが問題Idの長さ-1を超えた場合、問題Idの配列をコピーして今の配列の後ろに追加する
+	}
+	
+	/**
+	 * indexを減らす処理を実装
+	 *
+	 * @throw NullPointerException indexが0以下に呼ばれた場合、ぬるぽがスローされる
+	 */
+	public void indexDecrement() {
+		// TODO: mIndexを減らす処理を実装
 	}
 	
 	public void addAnswerToList() {
