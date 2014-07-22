@@ -42,13 +42,25 @@ html,body{
 }
 
 .main{
-	width:95%;
+	width:90%;
 	margin-right:     auto;
 	margin-left:      auto;
 	padding-bottom:200px;
 }
+
+.btn-group{
+	width:			  18.5%;
+	display:block;
+	float:left;
+	margin-right:2%;
+}
+
+.btn_right{
+	margin-right:-2%;
+}
+
+
 .foote_btncl{
-	width:			  23.5%;
 	padding-top:      15px;
 	padding-bottom:   15px;
 	background-color: #F90;
@@ -63,8 +75,8 @@ html,body{
 }
 
 .footer_btm{
-	width:95%;
-	margin-right:     auto;
+/*	width:95%;
+*/	margin-right:     auto;
 	margin-left:      auto;
 	right:0;
 	left:0;
@@ -73,10 +85,21 @@ html,body{
 	position:absolute;
 }
 .wid{
-	width:95%;
+	width:90%;
+	margin-right:auto;
+	margin-left:auto;
+	overflow:hidden;
+
+
+}
+.wid2{
+	width:90%;
 	margin-right:auto;
 	margin-left:auto;
 
+}
+.align{
+	text-align:center;
 }
 
 </style>
@@ -102,7 +125,7 @@ html,body{
 								</div> -->
 								<!-- プログレスバーend -->
 								<!-- 問題入力start -->
-								<div class="row">
+								<div class="row" style="background-color:#099;">
 										<p id="sentence"></p>
 										<p id="answer1"></p>
 										<p id="answer2"></p>
@@ -113,24 +136,28 @@ html,body{
 					</div>
 					<div class="row footer_btm">
 								<!-- 選択肢start -->
-								<div class="row wid">
-										<button type="radio" name="selection" value="1" class="btn btn-default btn-sm foote_btncl" style="margin-right:1%;">
+								<div class="row wid align">
+										<button type="radio" name="selection" value="1" class="btn btn-default btn-sm foote_btncl btn-group">
 												ア
 										</button>
-										<button type="radio" name="selection" value="2" class="btn btn-default btn-sm foote_btncl" style="margin-right:1%;">
+										<button type="radio" name="selection" value="2" class="btn btn-default btn-sm foote_btncl btn-group">
 												イ
 										</button>
-										<button type="radio" name="selection" value="3" class="btn btn-default btn-sm foote_btncl" style="margin-right:1%;">
+										<button type="radio" name="selection" value="3" class="btn btn-default btn-sm foote_btncl btn-group">
 												ウ
 										</button>
-										<button type="radio" name="selection" value="4" class="btn btn-default btn-sm foote_btncl">
+										<button type="radio" name="selection" value="4" class="btn btn-default btn-sm foote_btncl btn-group">
 												エ
 										</button>
+										<button type="radio" name="selection" value="4" class="btn btn-default btn-sm foote_btncl btn-group btn_right">
+												未回答
+										</button>
+
 								</div>
 								<!-- 選択肢end -->
 								<!-- 次へstart -->
-								<div class="row wid">
-										<button type="button" class="btn btn-default btn-sm col-xs-12 col-xs-offset-0 foot_next">
+								<div class="row wid2">
+										<button type="button" class="btn btn-default btn-sm col-xs-12 foot_next">
 												回答
 										</button>
 								</div>
