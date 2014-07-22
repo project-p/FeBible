@@ -4,58 +4,71 @@
  */
 package info.project_p.febible;
 
+import info.project_p.febible.R.id;
+
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
+import java.util.List;
+
+import android.content.Context;
+import android.content.SharedPreferences;
 
 public class IdListManager {
-	protected ArrayList<String> idList;
-	private static IdListManager idListManager;
+	// プリファレンスのファイル名
+	private final String FILE_NAME = "question_preference";
+	// 現在動作中のContext（Activity）
+	private Context mContext;
+	// Contextから取得したプリファレンス
+	private SharedPreferences mPreferences;
+	// 問題IDの配列を保持するメンバ変数
+	private ArrayList<String> mIdList;
+	// 回答結果を保持するメンバ変数
+	private List<String> mAnswerList;
+	// 配列の添え字を保持するメンバ変数
+	private int mIndex;
 	
 	/**
 	 * コンストラクタ。
-	 * シングルトンにするためprotectedメソッドとする
 	 */
-	protected IdListManager() {
-		idList = new ArrayList<String>();
-		setIdList();
-	}
-	
-	/**
-	 * IdListManagerのインスタンスを取得する。
-	 * シングルトンパターンにより、このクラスのインスタンスはアプリケーション全体で一意となる。
-	 * 
-	 * @return IdListManagerのインスタンス
-	 */
-	public static IdListManager getInstanse(){
-		if(idListManager == null) idListManager = new IdListManager();
-		return idListManager;
-	}
-		
-	/**
-	 * 設定範囲より取得した問題のIDから、ランダムな値を取得する
-	 * 
-	 * @return v_questionテーブルの主キー
-	 */
-	public String getRondomId() {
-		Collections.shuffle(idList);
-		return idList.get(0);
+	public IdListManager(Context context) {
+		mContext     = context;
+		mPreferences = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+		mIdList      = new ArrayList<String>();
+		mAnswerList  = new ArrayList<String>();
+		initialize();
 	}
 	
 	/**
 	 * 設定範囲より取得した問題のIDから、値を取得する。
-	 * この値はgetRondomIdメソッドを呼ぶまで同じ値を返す。
 	 * 
 	 * @return v_questionテーブルの主キー
 	 */
 	public String getId() {
-		return idList.get(0);
+		return mIdList.get(mIndex);
+	}
+	
+	public void addAnswerToList() {
+		// TODO: 回答結果をmAnswerListに追加する処理を実装
 	}
 
 	/**
 	 * 設定が変更された際などに、プリファレンスから設定範囲の値を読み込んでidListを構築しなおすメソッド
 	 */
-	public void reloadIdList() {
-		// TODO: 実装する
+	protected void initialize() {
+		String idList = mPreferences.getString("id_list", "");
+		// 空文字でなければsplitしてメンバ変数に保持、
+		// 空文字ならsetIdListで設定を読み込んで配列を作成する
+		if(!idList.isEmpty()) {
+			mIdList = new ArrayList<String>(Arrays.asList(idList.split(",")));
+			
+			String answers = mPreferences.getString("answer_list", "");
+			mAnswerList = new ArrayList<String>(Arrays.asList(answers.split(","))); 
+		} else {
+			setIdList();
+		}
+		
+		// 現在参照中の添え字をプリファレンスから取得
+		mIndex = Integer.parseInt(mPreferences.getString("index", "1"));
 	}
 	
 	/**
@@ -67,7 +80,7 @@ public class IdListManager {
 		// TODO: プリファレンスに値が書き込まれていない場合、初期値の書き込みを実装
 		// プリファレンスの書き込みを実装していないため、仮値として1～100をセット
 		for(int i=1;i<=100;i++) {
-			idList.add(Integer.toString(i));
+			mIdList.add(Integer.toString(i));
 		}
 	}
 }

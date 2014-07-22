@@ -15,12 +15,11 @@ public class QuestionFragment extends FeBibleFragment {
 		super.onActivityCreated(savedInstanceState);
 		
 		// IdListManagerからランダムなidを取得し、検索条件として設定する
-		String id = IdListManager.getInstanse().getRondomId();
-		String where  = "_id = ?";
-		String[] args = { id };
-		
+		IdListManager idm = new IdListManager(getActivity());
+		String id = idm.getId();
+
 		// 問題の値オブジェクトを生成し、webViewに渡す
-		QuestionValue question = new QuestionValue(getActivity(), where, args);
+		QuestionValue question = new QuestionValue(getActivity(), id);
 		webView.addJavascriptInterface(question, "jsQuestion");
 
 		// WebViewに指定したファイルを読み込ませる

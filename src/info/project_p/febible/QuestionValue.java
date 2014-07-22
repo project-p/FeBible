@@ -38,23 +38,20 @@ public class QuestionValue {
 	};
 	// 検索条件から取得した値を保持するマップ
 	private HashMap<String, String> mMap;
-	private String where;
-	private String[] where_args;
+	// 問題のID
+	private String mId;
 	
 	/**
 	 * コンストラクタ。
 	 * 
-	 * @param context    アクティビティのインスタンス
-	 * @param mDb        接続先のデータベースに接続済みのSQLiteDatabaseのインスタンス
-	 * @param where      検索条件の文字列
-	 * @param where_args　検索条件のプレースホルダにバインドする文字列の配列
+	 * @param context アクティビティのインスタンス
+	 * @param id      _idの値
 	 */
-	public QuestionValue(Context context, String where, String[] where_args) {
-		mMap = new HashMap<String, String>();
+	public QuestionValue(Context context,  String id) {
 		DataBaseHelper dbHelper = new DataBaseHelper(context);
-		this.mDb        = dbHelper.openDataBase();
-		this.where      = where;
-		this.where_args = where_args;
+		mMap = new HashMap<String, String>();
+		mDb  = dbHelper.openDataBase();
+		mId  = id;
 		setDataToMap();
 	}
 	
@@ -94,13 +91,12 @@ public class QuestionValue {
 	 */
 	private void setDataToMap() {			
 		String table  = "v_question"; // テーブル名
-		String where  = this.where;   // 検索条件
-		String[] args = where_args;   // プレースホルダの配列
+		String[] args = { mId };   // プレースホルダの配列
 		
 		// 検索を実行し、結果をHashMapに保存する
 		Cursor c = null;
 		try {
-			c = mDb.query(table, COLMUNS, where, args, null, null, null);
+			c = mDb.query(table, COLMUNS, "_id = ?", args, null, null, null);
 			
 			boolean success = c.moveToFirst();
 			for(String column : COLMUNS) {
