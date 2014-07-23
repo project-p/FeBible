@@ -98,8 +98,30 @@ public class IdListManager {
 	 * プリファレンスに保存した設定範囲の値を読み込み、
 	 * 設定範囲に該当するv_questionテーブルの_idをメンバ変数idListに設定するメソッド
 	 */
+	/**
+	 * プリファレンスに保存した設定範囲の値を読み込み、
+	 * 設定範囲に該当するv_questionテーブルの_idをメンバ変数idListに設定するメソッド
+	 */
 	protected void setIdList() {
 		// TODO: プリファレンスから値を読み込んで検索を行い、値をidListに追加するよう修正
+		
+		//設定から該当するIDを","で区切った文字列で返す
+		
+		String[] where = null;//指定された設定を格納
+		String[] selected = null;//設定の条件を格納
+		
+		PreferenceSearcher search = new PreferenceSearcher(mContext, where, selected);
+		
+		SharedPreferences.Editor edit = mPreferences.edit();
+		
+		edit.putString("id_list",search.search());
+		
+		edit.commit();
+		
+		
+		
+				
+		
 		// TODO: プリファレンスに値が書き込まれていない場合、初期値の書き込みを実装
 		// プリファレンスの書き込みを実装していないため、仮値として1～100をセット
 		for(int i=1;i<=100;i++) {
