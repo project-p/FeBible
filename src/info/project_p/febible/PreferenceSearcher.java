@@ -15,7 +15,7 @@ public class PreferenceSearcher{
 	private String[] option;
 	
 	//where��̏�����ێ�����z��
-	private String[] optionSelected;
+	private String optionSelected;
 	
 	// �f�[�^���擾����J����
 	private String[] COLMUNS = {"_id"};
@@ -28,7 +28,7 @@ public class PreferenceSearcher{
 	 * @param whereSelected	where��̌�������
 	 */
 	
-	public PreferenceSearcher(Context context,String[] flag,String[] selected) {
+	public PreferenceSearcher(Context context,String[] flag,String selected) {
 		
 		DataBaseHelper dbHelper = new DataBaseHelper(context);
 		mDb  = dbHelper.openDataBase();
@@ -50,7 +50,7 @@ public class PreferenceSearcher{
 		
 		Cursor c = null;
 		try {
-			c = mDb.query(table, COLMUNS, "year = ?, season = ?", option, null, null, null);
+			c = mDb.query(table, COLMUNS, optionSelected, option, null, null, null);
 			
 			while(c.moveToNext()){	
 				

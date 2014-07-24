@@ -104,11 +104,21 @@ public class IdListManager {
 	 */
 	protected void setIdList() {
 		// TODO: プリファレンスから値を読み込んで検索を行い、値をidListに追加するよう修正
+	
+		Option op = new Option();
 		
-		//設定から該当するIDを","で区切った文字列で返す
+		//String idList = mPreferences.getString("id_list", "");
 		
-		String[] where = null;//指定された設定を格納
-		String[] selected = null;//設定の条件を格納
+		//TODO: viewから取得した設定項目の戻り値を各項目にセットする
+		op.setField_name("");
+		op.setLargeCategory_name("");
+		op.setMiddleCategory_name("");
+		op.setSeason("");
+		op.setSmallCategory_name("");
+		op.setYear("");
+		
+		String[] where = op.getSelectedArray();//指定された設定を格納
+		String selected = op.getWhereString();//設定の条件を格納
 		
 		PreferenceSearcher search = new PreferenceSearcher(mContext, where, selected);
 		
@@ -116,6 +126,7 @@ public class IdListManager {
 		
 		edit.putString("id_list",search.search());
 		
+		//書き込み
 		edit.commit();
 		
 				
