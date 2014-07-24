@@ -118,8 +118,6 @@ public class IdListManager {
 		
 		edit.commit();
 		
-		
-		
 				
 		
 		// TODO: プリファレンスに値が書き込まれていない場合、初期値の書き込みを実装
