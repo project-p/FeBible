@@ -15,6 +15,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 import android.webkit.JavascriptInterface;
 
 public class QuestionValue {
@@ -76,7 +77,6 @@ public class QuestionValue {
 	 */
 	@JavascriptInterface
 	public String getJson() {
-
 		ObjectMapper mapper = new ObjectMapper();
 		String json = "";
 		try {
@@ -86,7 +86,13 @@ public class QuestionValue {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		Log.d("QuestionValue", json);
 		return json;
+	}
+	
+	public boolean getResult(String answer) {
+		if(mMap.get("collectAnswer").equals(answer)) return true;
+		return false;
 	}
 	
 	/**
@@ -118,5 +124,25 @@ public class QuestionValue {
 			}
 			mDb.close();
 		}
+		
+		formatToJson();
+	}
+	
+	private void formatToJson() {
+		// 年度のフォーマット
+		mMap.put("year", "平成" + mMap.get("year") + "年度");
+		
+		// 季節のフォーマット
+		String season = mMap.get("season");
+		if(season.equals("1")) {
+			season = "春季";
+		} else if(season.equals("2")) {
+			season = "秋季";
+		} else if(season.equals("3")) {
+			season = "特別";
+		}		
+		mMap.put("season", season);
+		
+		mMap.put("number", "問" + mMap.get("number"));
 	}
 }

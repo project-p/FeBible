@@ -21,6 +21,7 @@ public abstract class FeBibleFragment extends WebViewFragment {
 	 * @return 遷移先のFeBibleFragmentのインスタンス
 	 */
 	abstract public String getNextPageTag();
+	abstract public FeBibleFragment getNextFragment();
 	
 	public void backPage(){};
 	
@@ -38,13 +39,13 @@ public abstract class FeBibleFragment extends WebViewFragment {
 		
 		// JavaScriptのデバッグ用にconsoleメソッドをオーバーライドしてwebViewにセット
 		// webView側で「console.log()」を利用すると結果がコンソールに表示される
-//		webView.setWebChromeClient(new WebChromeClient(){
-//		    @Override
-//		    public boolean onConsoleMessage(ConsoleMessage cm){
-//		        Log.d("FeBible", cm.message() + "--From line " + cm.lineNumber() + " of " + cm.sourceId());
-//		        return true;
-//		    }
-//		});
+		webView.setWebChromeClient(new WebChromeClient(){
+		    @Override
+		    public boolean onConsoleMessage(ConsoleMessage cm){
+		        Log.d("WebViewFragment", cm.message() + "--From line " + cm.lineNumber() + " of " + cm.sourceId());
+		        return true;
+		    }
+		});
 		
 		// 画面遷移のためにContextとしてActivityを渡す
 		webView.addJavascriptInterface(getActivity(), "activity");

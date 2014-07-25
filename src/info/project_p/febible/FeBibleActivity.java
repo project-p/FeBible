@@ -2,7 +2,7 @@ package info.project_p.febible;
 
 import java.io.IOException;
 import java.util.HashMap;
-
+import java.util.LinkedList;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.database.SQLException;
@@ -15,6 +15,7 @@ import android.view.Window;
 
 public class FeBibleActivity extends FragmentActivity {
 	private FeBibleFragment mFragment;
+	private LinkedList<String> mFragmentList;
 	private HashMap<String, FeBibleFragment> mFragmentMap;
 
 	@Override
@@ -33,16 +34,18 @@ public class FeBibleActivity extends FragmentActivity {
 		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
 		// 初期画面としてTopFragmentを設定し、main.xmlのfragment_containerに割り当て
-		fragmentTransaction.add(R.id.fragment_container, mFragment);
+		fragmentTransaction.add(R.id.fragment_container, mFragment, "TopFragment");
 
 		// FragmentTransactionの終了
 		fragmentTransaction.commit();
 
 		mFragmentMap = new HashMap<String, FeBibleFragment>();
-		mFragmentMap.put("top"     , mFragment             );
-		mFragmentMap.put("question", new QuestionFragment());
-		mFragmentMap.put("result"  , new ResultFragment()  );
-
+		mFragmentMap.put("TopFragment"     , mFragment             );
+		mFragmentMap.put("QuestionFragment", new QuestionFragment());
+		mFragmentMap.put("ResultFragment"  , new ResultFragment()  );
+		
+		mFragmentList = new LinkedList<String>();
+		mFragmentList.push("TopFragment");
 		// レイアウトの読み込み
 		setContentView(R.layout.main);
 	}
@@ -57,11 +60,6 @@ public class FeBibleActivity extends FragmentActivity {
 		return idm.getAnswer();
 	}
 	
-	public String getCollect() {
-		IdListManager idm = new IdListManager(this);
-		return idm.getCollect();
-	}
-	
 	/**
 	 * ページ遷移を行うメソッド
 	 * WebViewから呼び出され、メンバ変数fragmentから次のページのインスタンスを取得してfragmentを切り替える
@@ -70,16 +68,21 @@ public class FeBibleActivity extends FragmentActivity {
 		FragmentManager fragmentManager = getFragmentManager();
 
 		// FragmentTransactionの開始
+		String fragmentClassName = mFragment.getNextPageTag();
+		FeBibleFragment f = (FeBibleFragment)fragmentManager.findFragmentByTag(fragmentClassName);
+
 		FragmentTransaction ft = fragmentManager.beginTransaction();
-		// 次のFragmentの取得
-		mFragment = (FeBibleFragment)getFragmentManager().findFragmentById(R.id.fragment_container);
-		mFragment = mFragmentMap.get(mFragment.getNextPageTag());
-		// fragmentの置き換え
-		ft.replace(R.id.fragment_container, mFragment);
+		if( null == f ) {
+			f = mFragmentMap.get(fragmentClassName);
+		}
+		ft.replace(R.id.fragment_container, f, fragmentClassName);
 		// 置き換える前のfragmentをBackStackに追加する
 		ft.addToBackStack(null);
 		// Transactionの終了
 		ft.commit();
+
+		mFragmentList.push(mFragment.getClass().getSimpleName());
+		mFragment = f;
 	}
 
 	/**
@@ -89,7 +92,6 @@ public class FeBibleActivity extends FragmentActivity {
 	 */
 	@Override
 	public void onBackPressed(){
-		// 押された時のbackstackに積まれている数で多岐分岐
 		switch(getFragmentManager().getBackStackEntryCount()){
 		// 0個（＝Top画面）の場合、アプリを終了する
 		case 0:
@@ -101,10 +103,15 @@ public class FeBibleActivity extends FragmentActivity {
 			break;
 		// それ以外の場合はbackPage()を呼んで戻る処理を行う
 		default:
-			mFragment = (FeBibleFragment)getFragmentManager().findFragmentById(R.id.fragment_container);
 			mFragment.backPage();
 			getFragmentManager().popBackStack();
 			break;
+		}
+		// 押された時のbackstackに積まれている数で多岐分岐
+		if(getFragmentManager().getBackStackEntryCount() != 0 ) {
+			String fragmentClassName = mFragmentList.pop();
+			FragmentManager fm = getFragmentManager();
+			mFragment = (FeBibleFragment)fm.findFragmentByTag(fragmentClassName);
 		}
 	}
 

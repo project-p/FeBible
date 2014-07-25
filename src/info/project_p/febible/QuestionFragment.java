@@ -12,7 +12,6 @@ public class QuestionFragment extends FeBibleFragment {
 	// Resumeのタイミングで呼び出されるため空のコンストラクタを宣言しておくらしい
 	public QuestionFragment() {}
 
-	@SuppressLint("SetJavaScriptEnabled")
 	@Override
 	public void onActivityCreated(Bundle bundle) {
 		super.onActivityCreated(bundle);
@@ -29,16 +28,20 @@ public class QuestionFragment extends FeBibleFragment {
 
 		// 問題の値オブジェクトを生成し、webViewに渡す
 		QuestionValue question = new QuestionValue(getActivity(), id);
-		webView.addJavascriptInterface(question, "jsQuestion");
+		webView.addJavascriptInterface(question, "questionValue");
 
 		// WebViewに指定したファイルを読み込ませる
 		webView.loadUrl(URL);
 	}
 	
-	@SuppressLint("SetJavaScriptEnabled")
 	@Override
 	public String getNextPageTag() {
-		return "result";
+		return "ResultFragment";
+	}
+	
+	@Override
+	public FeBibleFragment getNextFragment() {
+		return new ResultFragment();
 	}
 	
 	// 戻るボタンが押された時、IdListのindexを-1する

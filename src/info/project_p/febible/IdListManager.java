@@ -6,16 +6,12 @@ package info.project_p.febible;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
 public class IdListManager {
-	// プリファレンスのファイル名
-	private final String FILE_NAME = "question_preference";
 	// 現在動作中のContext（Activity）
 	private Context mContext;
 	// Contextから取得したプリファレンス
@@ -47,10 +43,20 @@ public class IdListManager {
 		return mIdList.get(mIndex);
 	}
 	
+	/**
+	 * プリファレンスから回答結果を取得する
+	 * 
+	 * @return 回答結果の番号
+	 */
 	public String getAnswer() {
 		return mAnswerList.get(mIndex);
 	}
 	
+	/**
+	 * 正解の選択肢を取得する
+	 * 
+	 * @return 正解の選択肢番号
+	 */
 	public String getCollect() {
 		QuestionValue question = new QuestionValue(mContext, getId());
 		return question.getValue("collectAnswer");
@@ -95,6 +101,12 @@ public class IdListManager {
 		editor.commit();
 	}
 
+	/**
+	 * 文字列の配列
+	 * 
+	 * @param arr 変換したい配列
+	 * @return
+	 */
 	protected String arrayToString(String[] arr) {
 		String str = "";
 		for(String a : arr) {

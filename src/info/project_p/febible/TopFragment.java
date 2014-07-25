@@ -24,6 +24,11 @@ public class TopFragment extends FeBibleFragment {
 	
 	@Override
 	public String getNextPageTag() {
-		return "question";
+		return "QuestionFragment";
+	}
+
+	@Override
+	public FeBibleFragment getNextFragment() {
+		return new QuestionFragment();
 	}
 }

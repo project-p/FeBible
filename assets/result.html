@@ -83,7 +83,7 @@ and open the template in the editor.
        	<!-- ヘッダーここから -->
            <div class="row">
             <div class="col-xs-12 title">
-               <p>平成26年度　春期　問54</p>
+               <p id="title"></p>
             </div>
             <button type="button" class="btn btn-default btn-sm set_nav">
 				<i class="glyphicon glyphicon-cog"></i>
@@ -92,33 +92,22 @@ and open the template in the editor.
        	<!-- ヘッダーここまで -->
        	<!-- 画面ここから -->
            <div class="row main">
-				<p class="text-center">ストラテジ</p>
+				<p class="text-center" id="largeCategory"></p>
 
                 <div class="row">
                 	<div class="well well-sm wid">
                 	<p class="text-center ans" id="result"></p>
                     </div>
                 </div>
-				<p class="wid">解説</p>
+				<p class="wid">選択肢</p>
                 <div class="row">
                 	<div class="well well-sm wid">
-                	<p class="scroll">
-                        ア：テストデータの作成基準として，命令や分岐の網羅率を使用する。<br>
-                        ホワイトボックステストについての記述です。<br>
-                        イ：被テストプログラムに冗長なコードがあっても検出できない。<br>
-            正しい。ブラックボックステストではプログラムの内部構造に着目しません。<br>
-                        ウ：プログラムの内部構造に着目し，必要な部分が実行されたかどうかを検証する。<br>
-            ホワイトボックステストについての記述です。<br>
-                        エ：分岐命令やモジュールの数が増えると，テストデータが急増する。<br>
-            ホワイトボックステストについての記述です。<br>
-                        ア：テストデータの作成基準として，命令や分岐の網羅率を使用する。<br>
-                        ホワイトボックステストについての記述です。<br>
-                        イ：被テストプログラムに冗長なコードがあっても検出できない。<br>
-            正しい。ブラックボックステストではプログラムの内部構造に着目しません。<br>
-                        ウ：プログラムの内部構造に着目し，必要な部分が実行されたかどうかを検証する。<br>
-            ホワイトボックステストについての記述です。<br>
-                        エ：分岐命令やモジュールの数が増えると，テストデータが急増する。<br>
-						ホワイトボックステストについての記述です。<br>                    </p>
+	                	<div class="scroll">
+	                		<p id="answer1"></p>
+	                		<p id="answer2"></p>
+	                		<p id="answer3"></p>
+	                		<p id="answer4"></p>
+	                	</div>
                 	</div>
                 </div>
            </div>
@@ -137,16 +126,31 @@ and open the template in the editor.
            <script src="js/bootstrap.min.js"></script>
             <script>
                 $(document).ready(function() {
-                var select = activity.getAnswer();
-                var collect = activity.getCollect();
-                if(select === collect) {
-                	$('#result').text('正解');
-                } else {
-                	$('#result').text('不正解');
-                }
-                  $('#Next').click(function() {
-                    activity.goNextPage();
-                  });
+	                var question = JSON.parse(questionValue.getJson());
+	                var select = activity.getAnswer();
+	                if(questionValue.getResult(select)) {
+		                $('#result').text("正解");
+	                } else {
+		                var collect = function() {
+		                	if(question["collectAnswer"] === "1") return "ア";
+		                	if(question["collectAnswer"] === "2") return "イ";
+		                	if(question["collectAnswer"] === "3") return "ウ";
+		                	if(question["collectAnswer"] === "4") return "エ";
+		                	return "";
+		                }
+		                $('#result').html('不正解　<span id="collect">正解：' + collect() + "</span>");
+		            }
+
+	                $('#title').html(question["year"] + question["season"] + "　" + question["number"]);
+	                $('#largeCategory').html(question["largeCategory_name"]);
+	                $('#answer1').html("ア：" + question["answer1"]);
+	                $('#answer2').html("イ：" + question["answer2"]);
+	                $('#answer3').html("ウ：" + question["answer3"]);
+	                $('#answer4').html("エ：" + question["answer4"]);
+	                
+                    $('#Next').click(function() {
+	                	activity.goNextPage();
+	                });
                 });
             </script>
             <!-- 画面ここまで -->

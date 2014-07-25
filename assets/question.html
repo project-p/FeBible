@@ -167,16 +167,8 @@ html,body{
 					<script src="js/bootstrap.min.js"></script>
 					<script>
 						$(document).ready(function(){
-							var question = JSON.parse(jsQuestion.getJson());
-							var season   = "";
-							if(question["season"] === "1") {
-									season = "春季";
-							} else if(question["season"] === "2") {
-									season = "秋季";
-							} else if (question["season"] === "3") {
-									season = "特別";
-							}
-							$('#title').html("平成" + question["year"] + "年度" + season);
+							var question = JSON.parse(questionValue.getJson());
+							$('#title').html(question["year"] + question["season"] + "　" + question["number"]);
 							$('#sentence').html("問題文：" + question["sentence"]);
 							$('#answer1').html("ア：" + question["answer1"]);
 							$('#answer2').html("イ：" + question["answer2"]);
@@ -184,11 +176,18 @@ html,body{
 							$('#answer4').html("エ：" + question["answer4"]);
 							$('#Next').click(function(){
 								var answer = $('.active').val();
+								if(typeof answer === "undefined") {
+									this.blur();
+									return false;
+								}
 								activity.addAnswerToList(answer);
 								activity.goNextPage();
 							});
-							$('#answers>button').click(function(){
-								$('#answers>button').removeClass('active');
+							var $button = $('#answers>button'); 
+							$button.click(function(){
+								$button.each(function() {
+									$(this).removeClass('active');
+								});
 								$(this).addClass('active');
 							});
 						});
