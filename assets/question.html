@@ -136,7 +136,7 @@ html,body{
 					</div>
 					<div class="row footer_btm">
 								<!-- 選択肢start -->
-								<div class="row wid align">
+								<div class="row wid align" id="answers">
 										<button type="radio" name="selection" value="1" class="btn btn-default btn-sm foote_btncl btn-group">
 												ア
 										</button>
@@ -149,7 +149,7 @@ html,body{
 										<button type="radio" name="selection" value="4" class="btn btn-default btn-sm foote_btncl btn-group">
 												エ
 										</button>
-										<button type="radio" name="selection" value="4" class="btn btn-default btn-sm foote_btncl btn-group btn_right">
+										<button type="radio" name="selection" value="5" class="btn btn-default btn-sm foote_btncl btn-group btn_right">
 												未回答
 										</button>
 
@@ -166,27 +166,32 @@ html,body{
 					<script src="js/jquery.js"></script>
 					<script src="js/bootstrap.min.js"></script>
 					<script>
-						function loadQuestion() {
-								var question = JSON.parse(jsQuestion.getJson());
-								var season   = "";
-								if(question["season"] === "1") {
-										season = "春季";
-								} else if(question["season"] === "2") {
-										season = "秋季";
-								} else if (question["season"] === "3") {
-										season = "特別";
-								}
-								$('#title').html("平成" + question["year"] + "年度" + season);
-								$('#sentence').html("問題文：" + question["sentence"]);
-								$('#answer1').html("ア：" + question["answer1"]);
-								$('#answer2').html("イ：" + question["answer2"]);
-								$('#answer3').html("ウ：" + question["answer3"]);
-								$('#answer4').html("エ：" + question["answer4"]);
-								$('#Next').click(function(){
-									activity.goNextPage();
-								});
-						}
-						$(document).ready(loadQuestion);
+						$(document).ready(function(){
+							var question = JSON.parse(jsQuestion.getJson());
+							var season   = "";
+							if(question["season"] === "1") {
+									season = "春季";
+							} else if(question["season"] === "2") {
+									season = "秋季";
+							} else if (question["season"] === "3") {
+									season = "特別";
+							}
+							$('#title').html("平成" + question["year"] + "年度" + season);
+							$('#sentence').html("問題文：" + question["sentence"]);
+							$('#answer1').html("ア：" + question["answer1"]);
+							$('#answer2').html("イ：" + question["answer2"]);
+							$('#answer3').html("ウ：" + question["answer3"]);
+							$('#answer4').html("エ：" + question["answer4"]);
+							$('#Next').click(function(){
+								var answer = $('.active').val();
+								activity.addAnswerToList(answer);
+								activity.goNextPage();
+							});
+							$('#answers>button').click(function(){
+								$('#answers>button').removeClass('active');
+								$(this).addClass('active');
+							});
+						});
 					</script>
 				<!-- 画面ここまで -->
 			 </div>

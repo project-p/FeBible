@@ -96,7 +96,7 @@ and open the template in the editor.
 
                 <div class="row">
                 	<div class="well well-sm wid">
-                	<p class="text-center ans">不正解　<span>正解:ウ</span></p>
+                	<p class="text-center ans" id="result"></p>
                     </div>
                 </div>
 				<p class="wid">解説</p>
@@ -137,6 +137,13 @@ and open the template in the editor.
            <script src="js/bootstrap.min.js"></script>
             <script>
                 $(document).ready(function() {
+                var select = activity.getAnswer();
+                var collect = activity.getCollect();
+                if(select === collect) {
+                	$('#result').text('正解');
+                } else {
+                	$('#result').text('不正解');
+                }
                   $('#Next').click(function() {
                     activity.goNextPage();
                   });

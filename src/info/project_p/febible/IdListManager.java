@@ -11,6 +11,7 @@ import java.util.List;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 public class IdListManager {
 	// プリファレンスのファイル名
@@ -46,6 +47,15 @@ public class IdListManager {
 		return mIdList.get(mIndex);
 	}
 	
+	public String getAnswer() {
+		return mAnswerList.get(mIndex);
+	}
+	
+	public String getCollect() {
+		QuestionValue question = new QuestionValue(mContext, getId());
+		return question.getValue("collectAnswer");
+	}
+	
 	/**
 	 * mIndexを増やす処理
 	 */
@@ -70,10 +80,34 @@ public class IdListManager {
 		editor.commit();
 	}
 	
-	public void addAnswerToList() {
+	public void addAnswerToList(String answer) {
 		// TODO: 回答結果をmAnswerListに追加する処理を実装
+		if(mAnswerList.size() <= mIndex) {
+			mAnswerList.add(answer);
+		} else {
+			mAnswerList.set(mIndex, answer);
+		}
+		
+		SharedPreferences.Editor editor = mPreferences.edit();
+		editor.putString("answer_list", arrayToString(mAnswerList.toArray(new String[0])));
+		Log.d("mIndex", Integer.toString(mIndex));
+		Log.d("answer_list", arrayToString(mAnswerList.toArray(new String[0])));
+		editor.commit();
 	}
 
+	protected String arrayToString(String[] arr) {
+		String str = "";
+		for(String a : arr) {
+			if(str.equals("")) {
+				str = a;
+			} else {
+				str += "," + a;
+			}
+		}
+		return str;
+	}
+	
+	
 	/**
 	 * 設定が変更された際などに、プリファレンスから設定範囲の値を読み込んでidListを構築しなおすメソッド
 	 */
@@ -84,12 +118,13 @@ public class IdListManager {
 		if(!idList.isEmpty()) {
 			mIdList = new ArrayList<String>(Arrays.asList(idList.split(",")));
 			
-			String answers = mPreferences.getString("answer_list", "");
-			mAnswerList = new ArrayList<String>(Arrays.asList(answers.split(","))); 
 		} else {
 			setIdList();
 		}
-		
+		String answers = mPreferences.getString("answer_list", "");
+		mAnswerList = new ArrayList<String>(Arrays.asList(answers.split(","))); 
+		Log.d("id_list", arrayToString(mIdList.toArray(new String[0])));
+
 		// 現在参照中の添え字をプリファレンスから取得
 		mIndex = mPreferences.getInt("index", 0);
 	}

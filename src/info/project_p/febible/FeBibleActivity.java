@@ -2,11 +2,13 @@ package info.project_p.febible;
 
 import java.io.IOException;
 import java.util.HashMap;
+
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.database.SQLException;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
@@ -44,7 +46,22 @@ public class FeBibleActivity extends FragmentActivity {
 		// レイアウトの読み込み
 		setContentView(R.layout.main);
 	}
+	
+	public void addAnswerToList(String answer) {
+		IdListManager idm = new IdListManager(this);
+		idm.addAnswerToList(answer);
+	}
 
+	public String getAnswer() {
+		IdListManager idm = new IdListManager(this);
+		return idm.getAnswer();
+	}
+	
+	public String getCollect() {
+		IdListManager idm = new IdListManager(this);
+		return idm.getCollect();
+	}
+	
 	/**
 	 * ページ遷移を行うメソッド
 	 * WebViewから呼び出され、メンバ変数fragmentから次のページのインスタンスを取得してfragmentを切り替える
@@ -97,6 +114,7 @@ public class FeBibleActivity extends FragmentActivity {
 	private void setDatabase(){
 		DataBaseHelper db = new DataBaseHelper(this);
 		try {
+			Log.d("FeBibleActivity", "createEmptyDataBase()");
 			db.createEmptyDataBase();
 		} catch (IOException e) {
 			throw new Error("Unable to create Database");
