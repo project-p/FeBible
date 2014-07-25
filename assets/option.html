@@ -196,43 +196,41 @@ and open the template in the editor.
             <script>
             
             $(document).ready(function(){
-            
             	$('#set').click(function(){
-
-			function field(selector) {
-				var value = $(selector).val;
-				option.setField_name(value);
-			}
-			
-			function Large(selector) {
-				var value = $(selector).val;
-				option.setLargeCategory_name(value);
-			}
-			
-			function Middle(selector) {
-				var value = $(selector).val;
-				option.setMiddleCategory_name(value);
-			}
-			
-			function Season(selector) {
-				var value = $(selector).val;
-				option.setSeason(value);
-			}
-			
-			function Year(selector) {
-				var value = $(selector).val;
-				option.setYear(value);
-			}
-			
-			field("#field");
-			Large("#lCategory");
-			Middle("#mCategory");
-			Season("#season");
-			Year("#year");
-			
-			option.
-			});
-	    }
+					function field(selector) {
+						var value = $(selector).val;
+						option.setField_name(value);
+					}
+				
+					function Large(selector) {
+						var value = $(selector).val;
+						option.setLargeCategory_name(value);
+					}
+				
+					function Middle(selector) {
+						var value = $(selector).val;
+						option.setMiddleCategory_name(value);
+					}
+				
+					function Season(selector) {
+						var value = $(selector).val;
+						option.setSeason(value);
+					}
+				
+					function Year(selector) {
+						var value = $(selector).val;
+						option.setYear(value);
+					}
+				
+					field("#field");
+					Large("#lCategory");
+					Middle("#mCategory");
+					Season("#season");
+					Year("#year");
+					
+					activity.setIdList();
+				});
+		    });
             
             </script>	
 				</form>

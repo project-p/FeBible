@@ -86,7 +86,7 @@ html,body{
 					 <div class="col-xs-12 title">
 							<p>ここに文字だ～よ～</p>
 					 </div>
-						<button type="button" class="btn btn-default btn-sm set_nav">
+						<button type="button" class="btn btn-default btn-sm set_nav" id="option">
 				<i class="glyphicon glyphicon-cog"></i>
 						</button>
 					</div>
@@ -122,7 +122,10 @@ html,body{
 					<script>
 							$(document).ready(function() {
 									$('#next').click(function() {
-											activity.goNextPage();
+										activity.goNextPage();
+									});
+									$('#option').click(function() {
+										activity.goOptionPage();
 									});
 							});
 					</script>

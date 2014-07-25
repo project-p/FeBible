@@ -58,13 +58,13 @@ public class PreferenceSearcher{
 				
 				escape = c.getString(c.getColumnIndex(COLMUNS[0]));
 				
-				if(c.isLast()==false){
+				if(!c.isFirst()){
 				
 					result += ","+escape;
 				
 				}else{
 					
-					result += escape;
+					result = escape;
 					
 				}
 				

@@ -85,7 +85,7 @@ and open the template in the editor.
             <div class="col-xs-12 title">
                <p id="title"></p>
             </div>
-            <button type="button" class="btn btn-default btn-sm set_nav">
+            <button type="button" class="btn btn-default btn-sm set_nav" id="option">
 				<i class="glyphicon glyphicon-cog"></i>
             </button>
            </div>
@@ -151,6 +151,9 @@ and open the template in the editor.
                     $('#Next').click(function() {
 	                	activity.goNextPage();
 	                });
+					$('#option').click(function() {
+						activity.goOptionPage();
+					});
                 });
             </script>
             <!-- 画面ここまで -->

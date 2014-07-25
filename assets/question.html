@@ -111,7 +111,7 @@ html,body{
 						<div class="col-xs-12 title">
 							 <p id="title"></p>
 						</div>
-						<button type="button" class="btn btn-default btn-sm set_nav">
+						<button type="button" class="btn btn-default btn-sm set_nav" id="option">
 							<i class="glyphicon glyphicon-cog"></i>
 						</button>
 					 </div>
@@ -189,6 +189,9 @@ html,body{
 									$(this).removeClass('active');
 								});
 								$(this).addClass('active');
+							});
+							$('#option').click(function() {
+								activity.goOptionPage();
 							});
 						});
 					</script>
