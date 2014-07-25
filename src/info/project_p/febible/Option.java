@@ -28,13 +28,12 @@ public class Option {
 	private String field_name;
 	private String largeCategory_name;
 	private String middleCategory_name;
-	private String smallCategory_name;
 	
 	ArrayList<String> array = new ArrayList<String>();
 	ArrayList<String> whereArray = new ArrayList<String>();
 	
-	String[]option = {year,season,field_name,largeCategory_name,middleCategory_name,smallCategory_name};
-	String[]where = {"year","season","field_name","largeCategory_name","middleCategory_name","smallCategory_name"};
+	String[]option = {year,season,field_name,largeCategory_name,middleCategory_name};
+	String[]where = {"year","season","field_name","largeCategory_name","middleCategory_name"};
 	
 	public String getYear() {
 		return year;
@@ -74,14 +73,6 @@ public class Option {
 	
 	public void setMiddleCategory_name(String middleCategory_name) {
 		this.middleCategory_name = middleCategory_name;
-	}
-	
-	public String getSmallCategory_name() {
-		return smallCategory_name;
-	}
-	
-	public void setSmallCategory_name(String smallCategory_name) {
-		this.smallCategory_name = smallCategory_name;
 	}
 	
 	public void finder(){

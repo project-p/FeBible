@@ -33,7 +33,7 @@ public class PreferenceSearcher{
 		DataBaseHelper dbHelper = new DataBaseHelper(context);
 		mDb  = dbHelper.openDataBase();
 		option  = flag;
-		optionSelected = selected;
+		optionSelected = selected.equals("")? null : selected;
 	}
 	
 	public String search(){
@@ -46,7 +46,7 @@ public class PreferenceSearcher{
 		
 		Log.d("( ﾟДﾟ)","カイバー");
 		
-		String[] option = {"26", "1"};//TEST
+		String[] option = null;//{"26", "1"};//TEST
 		
 		Cursor c = null;
 		try {
@@ -79,6 +79,7 @@ public class PreferenceSearcher{
 			}
 			mDb.close();
 		}
+		Log.d("検索結果",result);
 		return result;
 		
 	}
