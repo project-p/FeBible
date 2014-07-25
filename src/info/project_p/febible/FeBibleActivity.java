@@ -62,6 +62,13 @@ public class FeBibleActivity extends FragmentActivity {
 		return idm.getCollect();
 	}
 	
+	public void setIdList(){
+		
+		IdListManager idm = new IdListManager(this);
+		idm.setIdList();
+		
+	}
+	
 	/**
 	 * ページ遷移を行うメソッド
 	 * WebViewから呼び出され、メンバ変数fragmentから次のページのインスタンスを取得してfragmentを切り替える

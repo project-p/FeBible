@@ -35,7 +35,7 @@ and open the template in the editor.
 	border:           none;
 	z-index:1;
 }
-
+	
 .main{
 	width:            95%;
 	margin-right:     auto;
@@ -79,6 +79,30 @@ and open the template in the editor.
        	<!--- 画面ここから --->            
            <div class="row main">
 				<form method="get">
+				
+		<!--分野選択フィールド-->
+                
+                <div class="form-group">
+                    <p>分野別</p>           
+                    <div class="row well well-sm">
+                    	<div class="row">
+                            <div class="col-xs-12">
+                                <select id="field" name="field" class="form-control">
+                                    <option value="">分野</option>
+                                    <option value="1">テクノロジ</option>
+                                    <option value="2">マネジメント</option>
+                                    <option value="3">ストラテジー</option>
+                                </select>
+                            </div>
+
+                        </div>
+                    	
+                    </div>
+                </div>
+                
+                <!---分野フィールドEND--->		
+				
+				
                 <!-- 分類別出題ここから -->
 				<p>分類別出題</p>           
            		<div class="row well well-sm">
@@ -129,20 +153,6 @@ and open the template in the editor.
                 </div>
                 <!-- 分類別出題ここまで -->
                 
-				<!-- 出題頻度別ここから -->
-                <div class="form-group">
-                    <p>出題頻度別</p>           
-                    <div class="row well well-sm">
-                        <select name="hindo" class="form-control col-xs-6">
-                            <option value="5">5</option>
-                            <option value="4">4</option>
-                            <option value="3">3</option>
-                            <option value="2">2</option>
-                            <option value="1">1</option>
-                        </select>
-                    </div>
-                </div>
-				<!-- 出題頻度別ここまで -->
                 
                 <!-- 年度別ここから -->
                 <div class="form-group">
@@ -169,33 +179,65 @@ and open the template in the editor.
                                 </select>
                             </div>
                         </div>
-                        <p style="text-align:center;">から</p>
-                    	<div class="row">
-                            <div class="col-xs-6">
-                                <select id="year2" name="year2" class="form-control">
-                                    <option value="">年度</option>
-                                    <option value="26">平成26年度</option>
-                                    <option value="25">平成25年度</option>
-                                    <option value="24">平成24年度</option>
-                                    <option value="23">平成23年度</option>
-                                    <option value="22">平成22年度</option>
-                                    <option value="21">平成21年度</option>
-                                </select>
-                            </div>
-                            <div class="col-xs-6">
-                                <select id="season2" name="season2" class="form-control">
-                                    <option value="">季節</option>
-                                    <option value="1">春</option>
-                                    <option value="2">秋</option>
-                                    <option value="3">特別</option>
-                                </select>
-                            </div>
-                        </div>
+                    	
                     </div>
                 </div>
                 <!-- 年度別ここまで -->
-           
+           	
+           <div class="row footer_btm">
+            	<div class="row wid">
+                <button type="button" class="btn btn-default btn-sm col-xs-12 foot_next" id="set">
+                    設定する
+                </button>
+                </div>
+            </div>
+
+            <script src="js/jquery.js"></script>
+            <script>
+            
+            $(document).ready(function(){
+            
+            	$('#set').click(function(){
+
+			function field(selector) {
+				var value = $(selector).val;
+				option.setField_name(value);
+			}
+			
+			function Large(selector) {
+				var value = $(selector).val;
+				option.setLargeCategory_name(value);
+			}
+			
+			function Middle(selector) {
+				var value = $(selector).val;
+				option.setMiddleCategory_name(value);
+			}
+			
+			function Season(selector) {
+				var value = $(selector).val;
+				option.setSeason(value);
+			}
+			
+			function Year(selector) {
+				var value = $(selector).val;
+				option.setYear(value);
+			}
+			
+			field("#field");
+			Large("#lCategory");
+			Middle("#mCategory");
+			Season("#season");
+			Year("#year");
+			
+			option.
+			});
+	    }
+            
+            </script>	
 				</form>
+
+
            </div>
            <script src="https://code.jquery.com/jquery.js"></script>
            <script src="js/bootstrap.min.js"></script>
