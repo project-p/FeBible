@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 /**
@@ -15,6 +18,8 @@ import android.util.Log;
  *
  *疲れたんでコードごり押し。
  *拡張性が無いんで暇な人、誰かHashMap版で実装しなおしてください(*‘ω‘ *)
+ *
+ *実装しといたよ！（by wakaba）
  */
 
 //toArray(new String[0]);
@@ -43,21 +48,26 @@ public class Option {
 	
 	String[]option = {year,season,field_name,largeCategory_name,middleCategory_name};
 	String[]where = {"year","season","field_name","largeCategory_name","middleCategory_name", "field_id", "largeCategory_id", "smallCategory_id"};
+	SharedPreferences mPreference;
 	
-	public Option() {
+	public Option(Context context) {
 		array = new ArrayList<String>();
 		whereArray = new ArrayList<String>();
 		settingsMap = new LinkedHashMap<String, String>();
+		mPreference = PreferenceManager.getDefaultSharedPreferences(context);
 	}
 	
 	/**
-	 * カラム名と値のペアで検索条件を設定する
+	 * カラム名と値のペアで検索条件を設定する。
+	 * ただし、valueがnull、あるいは空文字の場合設定しない。
 	 * 
 	 * @param key   検索条件として設定するカラム名
 	 * @param value 検索条件として設定する値
 	 */
 	public void setCondition(String key, String value) {
-		if(!Arrays.asList(where).contains(key)) return;
+		if( !Arrays.asList(where).contains(key) ) return;
+		if( null == value) return;
+		Log.d("Option", "set: " + key + ", value:" + value);
 		settingsMap.put(key, value);
 	}
 
@@ -68,13 +78,17 @@ public class Option {
 	 */
 	public void setConditions(HashMap<String, String> map) {
 		for (Map.Entry<String, String> entry :map.entrySet()) {
-			if(!Arrays.asList(where).contains(entry.getKey())) break;
-			settingsMap.put(entry.getKey(), entry.getValue());
+			setCondition(entry.getKey(), entry.getValue());
 		}
 	}
 	
-	public String get(String key) {
-		if(!Arrays.asList(where).contains(key)) return null;
+	/**
+	 * カラム名から検索条件として設定されている値を取得する。設定されていない場合nullを返す
+	 * 
+	 * @param key 値を取得したいカラム名
+	 * @return 設定されている値
+	 */
+	public String getCondition(String key) {
 		return settingsMap.get(key);
 	}
 	

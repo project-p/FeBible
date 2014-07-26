@@ -152,10 +152,13 @@ public class IdListManager {
 	public void setIdList() {
 		// TODO: プリファレンスから値を読み込んで検索を行い、値をidListに追加するよう修正
 	
-		Option op = new Option();
+		Option op = new Option(mContext);
 		
 		//String idList = mPreferences.getString("id_list", "");
 		
+		
+		Log.d("IdListManager", "where:" + op.generateWhere());
+		Log.d("IdListManager", "whereArgs:" + op.generateWhereArgs());
 		
 		String[] where = op.getSelectedArray();//指定された設定を格納
 		String selected = op.getWhereString();//設定の条件を格納

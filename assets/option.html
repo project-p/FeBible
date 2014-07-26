@@ -79,6 +79,35 @@ and open the template in the editor.
        	<!--- 画面ここから --->            
            <div class="row main">
 				<form method="get">
+                <!-- 年度別ここから -->
+                <div class="form-group">
+                    <p>年度別</p>           
+                    <div class="row well well-sm">
+                    	<div class="row">
+                            <div class="col-xs-6">
+                                <select id="year" name="year" class="form-control">
+                                    <option value>年度</option>
+                                    <option value="26">平成26年度</option>
+                                    <option value="25">平成25年度</option>
+                                    <option value="24">平成24年度</option>
+                                    <option value="23">平成23年度</option>
+                                    <option value="22">平成22年度</option>
+                                    <option value="21">平成21年度</option>
+                                </select>
+                            </div>
+                            <div class="col-xs-6">
+                                <select id="season" name="season" class="form-control">
+                                    <option value>季節</option>
+                                    <option value="1">春</option>
+                                    <option value="2">秋</option>
+                                    <option value="3">特別</option>
+                                </select>
+                            </div>
+                        </div>
+                    	
+                    </div>
+                </div>
+                <!-- 年度別ここまで -->
 				
 		<!--分野選択フィールド-->
                 
@@ -87,8 +116,8 @@ and open the template in the editor.
                     <div class="row well well-sm">
                     	<div class="row">
                             <div class="col-xs-12">
-                                <select id="field" name="field" class="form-control">
-                                    <option value="">分野</option>
+                                <select id="field_id" name="field_id" class="form-control">
+                                    <option value>分野</option>
                                     <option value="1">テクノロジ</option>
                                     <option value="2">マネジメント</option>
                                     <option value="3">ストラテジー</option>
@@ -108,8 +137,8 @@ and open the template in the editor.
            		<div class="row well well-sm">
                     <div class="row">
                         <div class="col-xs-6">
-                        <select id="lCategory" name="lCategory" class="form-control">
-                            <option value="" data-field="0" data-lCategory="0">大分類</option>
+                        <select id="largeCategory_id" name="largeCategory_id" class="form-control">
+                            <option value data-field="0" data-lCategory="0">大分類</option>
                             <option value="1" data-field="1" data-lCategory="1">基礎理論</option>
 							<option value="2" data-field="1" data-lCategory="2">コンピュータシステム</option>
 							<option value="3" data-field="1" data-lCategory="3">技術要素</option>
@@ -122,8 +151,8 @@ and open the template in the editor.
 						</select>
                         </div>
                         <div class="col-xs-6">
-                        <select id="mCategory" name="mCategory" class="form-control">
-                            <option value="" data-field="0" data-lCategory="0" data-mCategory="0">中分類</option>
+                        <select id="middleCategory_id" name="middleCategory_id" class="form-control">
+                            <option value data-field="0" data-lCategory="0" data-mCategory="0">中分類</option>
                             <option value="1" data-field="1" data-lCategory="1" data-mCategory="1">基礎理論</option>
 							<option value="2" data-field="1" data-lCategory="1" data-mCategory="2">アルゴリズムとプログラミング</option>
 							<option value="3" data-field="1" data-lCategory="2" data-mCategory="3">コンピュータ構成要素</option>
@@ -152,37 +181,6 @@ and open the template in the editor.
                     </div>
                 </div>
                 <!-- 分類別出題ここまで -->
-                
-                
-                <!-- 年度別ここから -->
-                <div class="form-group">
-                    <p>年度別</p>           
-                    <div class="row well well-sm">
-                    	<div class="row">
-                            <div class="col-xs-6">
-                                <select id="year" name="year" class="form-control">
-                                    <option value="">年度</option>
-                                    <option value="26">平成26年度</option>
-                                    <option value="25">平成25年度</option>
-                                    <option value="24">平成24年度</option>
-                                    <option value="23">平成23年度</option>
-                                    <option value="22">平成22年度</option>
-                                    <option value="21">平成21年度</option>
-                                </select>
-                            </div>
-                            <div class="col-xs-6">
-                                <select id="season" name="season" class="form-control">
-                                    <option value="">季節</option>
-                                    <option value="1">春</option>
-                                    <option value="2">秋</option>
-                                    <option value="3">特別</option>
-                                </select>
-                            </div>
-                        </div>
-                    	
-                    </div>
-                </div>
-                <!-- 年度別ここまで -->
            	
            <div class="row footer_btm">
             	<div class="row wid">
@@ -197,36 +195,17 @@ and open the template in the editor.
             
             $(document).ready(function(){
             	$('#set').click(function(){
-					function field(selector) {
-						var value = $(selector).val;
-						option.setField_name(value);
+					function setCondition(selector) {
+						var value = $(selector).val();
+						var key = selector.replace("#", "");
+						option.setCondition(key, value);
 					}
 				
-					function Large(selector) {
-						var value = $(selector).val;
-						option.setLargeCategory_name(value);
-					}
-				
-					function Middle(selector) {
-						var value = $(selector).val;
-						option.setMiddleCategory_name(value);
-					}
-				
-					function Season(selector) {
-						var value = $(selector).val;
-						option.setSeason(value);
-					}
-				
-					function Year(selector) {
-						var value = $(selector).val;
-						option.setYear(value);
-					}
-				
-					field("#field");
-					Large("#lCategory");
-					Middle("#mCategory");
-					Season("#season");
-					Year("#year");
+					setCondition("#field_id");
+					setCondition("#largeCategory_id");
+					setCondition("#middleCategory_id");
+					setCondition("#season");
+					setCondition("#year");
 					
 					activity.setIdList();
 				});

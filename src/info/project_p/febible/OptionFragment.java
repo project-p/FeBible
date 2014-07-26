@@ -29,7 +29,7 @@ public class OptionFragment extends WebViewFragment {
 		
 		// 画面遷移のためにContextとしてActivityを渡す
 		webView.addJavascriptInterface(getActivity(), "activity");
-		webView.addJavascriptInterface(new Option(), "option");
+		webView.addJavascriptInterface(new Option(getActivity()), "option");
 		webView.loadUrl("file:///android_asset/option.html");
 	}
 	

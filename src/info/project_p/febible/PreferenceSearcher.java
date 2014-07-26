@@ -54,7 +54,7 @@ public class PreferenceSearcher{
 			
 			while(c.moveToNext()){	
 				
-				Log.d("(;´∀｀)",result);
+//				Log.d("(;´∀｀)",result);
 				
 				escape = c.getString(c.getColumnIndex(COLMUNS[0]));
 				
