@@ -35,7 +35,7 @@ and open the template in the editor.
 	border:           none;
 	z-index:1;
 }
-	
+
 .main{
 	width:            95%;
 	margin-right:     auto;
@@ -54,7 +54,22 @@ and open the template in the editor.
 	background-color: #F90;
 	border:           none;
 }
+.footer_btm{
+	width:95%;
+	margin-right:     auto;
+	margin-left:      auto;
+	right:0;
+	left:0;
+	height:10%;
+	bottom:5%;
+	position:absolute;
+}
+.wid{
+	width:95%;
+	margin-right:auto;
+	margin-left:auto;
 
+}
 <!-- 設定画面ここから -->
 
 
@@ -80,7 +95,7 @@ and open the template in the editor.
            <div class="row main">
 				<form method="get">
                 <!-- 年度別ここから -->
-                <div class="form-group">
+                <div class="form-group wid">
                     <p>年度別</p>           
                     <div class="row well well-sm">
                     	<div class="row">
@@ -111,7 +126,7 @@ and open the template in the editor.
 				
 		<!--分野選択フィールド-->
                 
-                <div class="form-group">
+                <div class="form-group wid">
                     <p>分野別</p>           
                     <div class="row well well-sm">
                     	<div class="row">
@@ -133,52 +148,54 @@ and open the template in the editor.
 				
 				
                 <!-- 分類別出題ここから -->
-				<p>分類別出題</p>           
-           		<div class="row well well-sm">
-                    <div class="row">
-                        <div class="col-xs-6">
-                        <select id="largeCategory_id" name="largeCategory_id" class="form-control">
-                            <option value data-field="0" data-lCategory="0">大分類</option>
-                            <option value="1" data-field="1" data-lCategory="1">基礎理論</option>
-							<option value="2" data-field="1" data-lCategory="2">コンピュータシステム</option>
-							<option value="3" data-field="1" data-lCategory="3">技術要素</option>
-							<option value="4" data-field="1" data-lCategory="4">開発技術</option>
-							<option value="5" data-field="2" data-lCategory="5">プロジェクトマネジメント</option>
-							<option value="6" data-field="2" data-lCategory="6">サービスマネジメント</option>
-							<option value="7" data-field="3" data-lCategory="7">システム戦略</option>
-							<option value="8" data-field="3" data-lCategory="8">経営戦略</option>
-							<option value="9" data-field="3" data-lCategory="9">企業と法務</option>
-						</select>
+                <div class="form-group wid">
+                    <p>分類別出題</p>           
+                    <div class="row well well-sm">
+                        <div class="row">
+                            <div class="col-xs-6">
+                            <select id="largeCategory_id" name="largeCategory_id" class="form-control">
+                                <option value data-field="0" data-lCategory="0">大分類</option>
+                                <option value="1" data-field="1" data-lCategory="1">基礎理論</option>
+                                <option value="2" data-field="1" data-lCategory="2">コンピュータシステム</option>
+                                <option value="3" data-field="1" data-lCategory="3">技術要素</option>
+                                <option value="4" data-field="1" data-lCategory="4">開発技術</option>
+                                <option value="5" data-field="2" data-lCategory="5">プロジェクトマネジメント</option>
+                                <option value="6" data-field="2" data-lCategory="6">サービスマネジメント</option>
+                                <option value="7" data-field="3" data-lCategory="7">システム戦略</option>
+                                <option value="8" data-field="3" data-lCategory="8">経営戦略</option>
+                                <option value="9" data-field="3" data-lCategory="9">企業と法務</option>
+                            </select>
+                            </div>
+                            <div class="col-xs-6">
+                            <select id="middleCategory_id" name="middleCategory_id" class="form-control">
+                                <option value data-field="0" data-lCategory="0" data-mCategory="0">中分類</option>
+                                <option value="1" data-field="1" data-lCategory="1" data-mCategory="1">基礎理論</option>
+                                <option value="2" data-field="1" data-lCategory="1" data-mCategory="2">アルゴリズムとプログラミング</option>
+                                <option value="3" data-field="1" data-lCategory="2" data-mCategory="3">コンピュータ構成要素</option>
+                                <option value="4" data-field="1" data-lCategory="2" data-mCategory="4">システム構成要素</option>
+                                <option value="5" data-field="1" data-lCategory="2" data-mCategory="5">ソフトウェア</option>
+                                <option value="6" data-field="1" data-lCategory="2" data-mCategory="6">ハードウェア</option>
+                                <option value="7" data-field="1" data-lCategory="3" data-mCategory="7">ヒューマンインターフェース</option>
+                                <option value="8" data-field="1" data-lCategory="3" data-mCategory="8">マルチメディア</option>
+                                <option value="9" data-field="1" data-lCategory="3" data-mCategory="9">データベース</option>
+                                <option value="10" data-field="1" data-lCategory="3" data-mCategory="10">ネットワーク</option>
+                                <option value="11" data-field="1" data-lCategory="3" data-mCategory="11">セキュリティ</option>
+                                <option value="12" data-field="1" data-lCategory="4" data-mCategory="12">システム開発技術</option>
+                                <option value="13" data-field="1" data-lCategory="4" data-mCategory="13">ソフトウェア開発管理技術</option>
+                                <option value="14" data-field="2" data-lCategory="5" data-mCategory="14">プロジェクトマネジメント</option>
+                                <option value="15" data-field="2" data-lCategory="6" data-mCategory="15">サービスマネジメント</option>
+                                <option value="16" data-field="2" data-lCategory="6" data-mCategory="16">システム監査</option>
+                                <option value="17" data-field="3" data-lCategory="7" data-mCategory="17">システム戦略</option>
+                                <option value="18" data-field="3" data-lCategory="7" data-mCategory="18">システム企画</option>
+                                <option value="19" data-field="3" data-lCategory="8" data-mCategory="19">経営戦略マネジメント</option>
+                                <option value="20" data-field="3" data-lCategory="8" data-mCategory="20">技術戦略マネジメント</option>
+                                <option value="21" data-field="3" data-lCategory="8" data-mCategory="21">ビジネスインダストリ</option>
+                                <option value="22" data-field="3" data-lCategory="9" data-mCategory="22">企業活動</option>
+                                <option value="23" data-field="3" data-lCategory="9" data-mCategory="23">法務</option>
+                            </select>
+                            </div>
                         </div>
-                        <div class="col-xs-6">
-                        <select id="middleCategory_id" name="middleCategory_id" class="form-control">
-                            <option value data-field="0" data-lCategory="0" data-mCategory="0">中分類</option>
-                            <option value="1" data-field="1" data-lCategory="1" data-mCategory="1">基礎理論</option>
-							<option value="2" data-field="1" data-lCategory="1" data-mCategory="2">アルゴリズムとプログラミング</option>
-							<option value="3" data-field="1" data-lCategory="2" data-mCategory="3">コンピュータ構成要素</option>
-							<option value="4" data-field="1" data-lCategory="2" data-mCategory="4">システム構成要素</option>
-							<option value="5" data-field="1" data-lCategory="2" data-mCategory="5">ソフトウェア</option>
-							<option value="6" data-field="1" data-lCategory="2" data-mCategory="6">ハードウェア</option>
-							<option value="7" data-field="1" data-lCategory="3" data-mCategory="7">ヒューマンインターフェース</option>
-							<option value="8" data-field="1" data-lCategory="3" data-mCategory="8">マルチメディア</option>
-							<option value="9" data-field="1" data-lCategory="3" data-mCategory="9">データベース</option>
-							<option value="10" data-field="1" data-lCategory="3" data-mCategory="10">ネットワーク</option>
-							<option value="11" data-field="1" data-lCategory="3" data-mCategory="11">セキュリティ</option>
-							<option value="12" data-field="1" data-lCategory="4" data-mCategory="12">システム開発技術</option>
-							<option value="13" data-field="1" data-lCategory="4" data-mCategory="13">ソフトウェア開発管理技術</option>
-							<option value="14" data-field="2" data-lCategory="5" data-mCategory="14">プロジェクトマネジメント</option>
-							<option value="15" data-field="2" data-lCategory="6" data-mCategory="15">サービスマネジメント</option>
-							<option value="16" data-field="2" data-lCategory="6" data-mCategory="16">システム監査</option>
-							<option value="17" data-field="3" data-lCategory="7" data-mCategory="17">システム戦略</option>
-							<option value="18" data-field="3" data-lCategory="7" data-mCategory="18">システム企画</option>
-							<option value="19" data-field="3" data-lCategory="8" data-mCategory="19">経営戦略マネジメント</option>
-							<option value="20" data-field="3" data-lCategory="8" data-mCategory="20">技術戦略マネジメント</option>
-							<option value="21" data-field="3" data-lCategory="8" data-mCategory="21">ビジネスインダストリ</option>
-							<option value="22" data-field="3" data-lCategory="9" data-mCategory="22">企業活動</option>
-							<option value="23" data-field="3" data-lCategory="9" data-mCategory="23">法務</option>
-						</select>
-                        </div>
-                    </div>
+					</div>
                 </div>
                 <!-- 分類別出題ここまで -->
            	
