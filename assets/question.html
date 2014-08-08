@@ -170,10 +170,10 @@ html,body{
 							var question = JSON.parse(questionValue.getJson());
 							$('#title').html(question["year"] + question["season"] + "　" + question["number"]);
 							$('#sentence').html("問題文：" + question["sentence"]);
-							$('#answer1').html("ア：" + question["answer1"]);
-							$('#answer2').html("イ：" + question["answer2"]);
-							$('#answer3').html("ウ：" + question["answer3"]);
-							$('#answer4').html("エ：" + question["answer4"]);
+							if(question["answer1"] !== "") $('#answer1').html("ア：" + question["answer1"]);
+							if(question["answer2"] !== "") $('#answer2').html("イ：" + question["answer2"]);
+							if(question["answer3"] !== "") $('#answer3').html("ウ：" + question["answer3"]);
+							if(question["answer4"] !== "") $('#answer4').html("エ：" + question["answer4"]);
 							$('#Next').click(function(){
 								var answer = $('.active').val();
 								if(typeof answer === "undefined") {
